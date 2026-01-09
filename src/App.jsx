@@ -106,8 +106,10 @@ const App = () => {
     container: { backgroundColor: '#f9fafb', minHeight: '100vh', width: '100%', fontFamily: 'sans-serif', color: '#111827', margin: 0, padding: 0 },
     hero: {
       height: '450px',
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/src/assets/gambarkedai.jpg')`,
-      backgroundSize: 'cover', backgroundPosition: 'center',
+      // Paste link yang anda copy dari Supabase tadi di dalam url()
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://xyz.supabase.co/storage/v1/object/public/assets/gambarkedai.jpg')`,
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white', padding: '20px'
     },
     searchContainer: {
