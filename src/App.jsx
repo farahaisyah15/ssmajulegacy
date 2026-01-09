@@ -107,7 +107,7 @@ const App = () => {
     hero: {
       height: '450px',
       // Paste link yang anda copy dari Supabase tadi di dalam url()
-      backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://xyz.supabase.co/storage/v1/object/public/assets/gambarkedai.jpg')`,
+      backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/sign/asset/gambarkedai.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85M2JjOWYzNC02ZDEyLTRkOTEtODExMC01YTNjNzQ0N2RmZDkiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJhc3NldC9nYW1iYXJrZWRhaS5qcGciLCJpYXQiOjE3Njc5NjY5NTgsImV4cCI6MTc5OTUwMjk1OH0.KnlEsVxuILCG-JEXTg_UgDG2jK3_WxD97aNk7CqcUhw')`,
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: 'white', padding: '20px'
