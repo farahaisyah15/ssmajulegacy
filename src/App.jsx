@@ -28,7 +28,7 @@ const Icons = {
   )
 };
 
-// 2. Komponen Butang WhatsApp dengan Hover Effect
+// 2. Komponen Butang WhatsApp
 const WhatsappButton = ({ link, label, styles }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
@@ -49,9 +49,11 @@ const WhatsappButton = ({ link, label, styles }) => {
   );
 };
 
-// 3. Komponen Card Produk dengan Hover Effect
+// 3. Komponen Card Produk - Kira Stok Dari Variants
 const ProductCard = ({ p, styles, onSelect }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const totalStokProduk = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
+
   return (
     <div 
       onMouseEnter={() => setIsHovered(true)}
@@ -70,6 +72,11 @@ const ProductCard = ({ p, styles, onSelect }) => {
       <div style={{ padding: '20px' }}>
         <span style={{ color: '#2563eb', fontSize: '12px', fontWeight: 'bold' }}>{p.cat}</span>
         <h3 style={{ margin: '10px 0' }}>{p.name}</h3>
+        
+        <p style={{ color: totalStokProduk > 0 ? '#059669' : '#dc2626', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px' }}>
+          {totalStokProduk > 0 ? `Stok Keseluruhan: ${totalStokProduk} unit` : 'Stok Habis'}
+        </p>
+
         <p style={styles.priceTag}>RM {Number(p.price).toLocaleString('en-MY')}</p>
       </div>
     </div>
@@ -105,8 +112,7 @@ const App = () => {
   const styles = {
     container: { backgroundColor: '#f9fafb', minHeight: '100vh', width: '100%', fontFamily: 'sans-serif', color: '#111827', margin: 0, padding: 0 },
     hero: {
-      height: '450px',
-      // Paste link yang anda copy dari Supabase tadi di dalam url()
+      height: '300px',
       backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/gambarkedai.jpg')`,
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
@@ -146,7 +152,6 @@ const App = () => {
             <p style={{ fontSize: '14px', letterSpacing: '6px', borderTop: '1px solid rgba(255,255,255,0.3)', borderBottom: '1px solid rgba(255,255,255,0.3)', padding: '12px 0', marginTop: '15px' }}>KUALITI PREMIUM • TERUS DARI KILANG</p>
           </div>
 
-          {/* --- SEARCH BAR DENGAN IKON --- */}
           <div style={styles.searchContainer}>
             <div style={styles.searchInputWrapper}>
               <div style={styles.searchIcon}><Icons.Search /></div>
@@ -186,16 +191,26 @@ const App = () => {
           </div>
           <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px', textAlign: 'center' }}>
             {selectedProduct.variants?.map((v, i) => (
-              <div key={i} style={{ marginBottom: '80px' }}>
+              <div key={i} style={{ marginBottom: '80px', borderBottom: '1px solid #f9fafb', paddingBottom: '40px' }}>
                 <img src={v.img} style={{ width: '100%', maxWidth: '500px', height: 'auto', borderRadius: '20px', boxShadow: '0 15px 35px rgba(0,0,0,0.1)', margin: '0 auto 25px', display: 'block' }} alt="" />
-                <h3 style={{ fontSize: '24px', marginBottom: '15px' }}>Warna: {v.color}</h3>
-                <WhatsappButton styles={styles} label="HUBUNGI WHATSAPP" link={`https://wa.me/60143106207?text=Saya berminat dengan ${selectedProduct.name} warna ${v.color}`} />
+                <h3 style={{ fontSize: '24px', marginBottom: '5px' }}>Warna: {v.color}</h3>
+                
+                <p style={{ 
+                    color: (Number(v.stok) > 0) ? '#059669' : '#dc2626', 
+                    fontWeight: 'bold', 
+                    fontSize: '16px', 
+                    marginBottom: '15px' 
+                }}>
+                  {Number(v.stok) > 0 ? `Stok Tersedia: ${v.stok} unit` : 'Stok Warna Ini Habis'}
+                </p>
+
+                <WhatsappButton styles={styles} label={Number(v.stok) > 0 ? "HUBUNGI WHATSAPP" : "TANYA STOK AKAN DATANG"} link={`https://wa.me/60143106207?text=Saya berminat dengan ${selectedProduct.name} warna ${v.color}`} />
               </div>
             ))}
           </div>
         </div>
       )}
-      <footer style={{ backgroundColor: '#000', color: 'white', padding: '60px 20px', textAlign: 'center' }}>
+      <footer style={{ backgroundColor: '#000', color: 'white', padding: '50px 20px', textAlign: 'center' }}>
         <h2 style={{ fontWeight: '900', marginBottom: '10px' }}>PERABOT PREMIUM JATI</h2>
         <p style={{ color: '#666', fontSize: '12px', letterSpacing: '2px' }}>BY SSMAJU LEGACY</p>
       </footer>
