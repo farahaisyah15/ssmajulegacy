@@ -9,7 +9,16 @@ const Icons = {
   Sofa: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0Z"/><path d="M12 18v-2"/></svg>,
   Utensils: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>,
   Bed: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>,
-  All: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+  All: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>,
+WhatsApp: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" stroke="white" strokeWidth="0.5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  ),
+  TikTok: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.84-.6-4.13-1.46-.14 2.45-.12 4.9.01 7.35.11 1.95-.33 3.99-1.61 5.56-1.34 1.71-3.6 2.61-5.74 2.53-2.31-.08-4.57-1.25-5.76-3.25-1.52-2.38-1.29-5.75.52-7.89 1.4-1.74 3.73-2.61 5.91-2.22V14.5c-1.11-.27-2.36-.05-3.23.72-.94.77-1.3 2.1-1.02 3.26.25 1.16 1.25 2.13 2.43 2.34 1.16.23 2.48-.15 3.19-1.1.66-.81.87-1.92.83-2.93-.05-3.66-.02-7.32-.03-10.98.01-2.26 0-4.52.02-6.79z" fill="#000000"/><path d="M12.525.02c-.02 2.27-.01 4.53-.02 6.79 0 3.66-.02 7.32.03 10.98.04 1.01-.17 2.12-.83 2.93-.71.95-2.03 1.33-3.19 1.1-1.18-.21-2.18-1.18-2.43-2.34-.28-1.16.08-2.49 1.02-3.26.87-.77 2.12-.99 3.23-.72v-4.04c-2.18-.39-4.51.48-5.91 2.22-1.81 2.14-2.04 5.51-.52 7.89 1.19 2 3.45 3.17 5.76 3.25 2.14.08 4.4-.82 5.74-2.53 1.28-1.57 1.72-3.61 1.61-5.56-.13-2.45-.15-4.9-.01-7.35 1.29.86 2.69 1.29 4.13 1.46V5.96c-1.54-.17-3.12-.68-4.24-1.79-1.12-1.08-1.67-2.64-1.75-4.17-1.3.01-2.6.01-3.91.02z" fill="#ff2d55" style={{mixBlendMode:'screen'}}/><path d="M12.525.02c-.02 2.27-.01 4.53-.02 6.79 0 3.66-.02 7.32.03 10.98.04 1.01-.17 2.12-.83 2.93-.71.95-2.03 1.33-3.19 1.1-1.18-.21-2.18-1.18-2.43-2.34-.28-1.16.08-2.49 1.02-3.26.87-.77 2.12-.99 3.23-.72v-4.04c-2.18-.39-4.51.48-5.91 2.22-1.81 2.14-2.04 5.51-.52 7.89 1.19 2 3.45 3.17 5.76 3.25 2.14.08 4.4-.82 5.74-2.53 1.28-1.57 1.72-3.61 1.61-5.56-.13-2.45-.15-4.9-.01-7.35 1.29.86 2.69 1.29 4.13 1.46V5.96c-1.54-.17-3.12-.68-4.24-1.79-1.12-1.08-1.67-2.64-1.75-4.17-1.3.01-2.6.01-3.91.02z" fill="#25f4ee" style={{mixBlendMode:'multiply'}}/></svg>
+  ),
+  Facebook: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/><path d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.67v2.613H7.078v3.47h3.047v8.385a12.09 12.09 0 001.938.157c.65 0 1.284-.052 1.906-.152v-8.39h2.702z" fill="white"/></svg>
+  ),
 };
 
 // 2. Komponen Card Produk (Improved UI)
@@ -225,14 +234,69 @@ const App = () => {
         </div>
       )}
 
-      <footer className="bg-[#0f172a] text-white py-20 px-6 text-center mt-20">
-        <div className="max-w-xl mx-auto">
-          <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
-          <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase mb-10 font-bold">By SSMAJU Legacy</p>
+      <footer className="bg-[#0f172a] text-white py-20 px-6 mt-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
+            <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            
+            {/* Kolum 1: WhatsApp Staff */}
+            <div className="space-y-5">
+              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
+              <div className="flex flex-col gap-4">
+                <a href="https://wa.me/601156588884" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                  <span>Amka (Sales)</span>
+                </a>
+                <a href="https://wa.me/601136829632" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                  <span>Pie (Sales)</span>
+                </a>
+                <a href="https://wa.me/60123456789" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                  <span>Pejabat / Office</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Kolum 2: Media Sosial */}
+            <div className="space-y-5">
+              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
+              <div className="flex flex-col gap-4">
+                <a href="https://tiktok.com/@premiumjati" target="_blank" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
+                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
+                  <span>TikTok @premiumjati</span>
+                </a>
+                <a href="https://facebook.com/SSMajuLegacy" target="_blank" className="group flex items-center gap-3 text-sm hover:text-blue-500 transition-all">
+                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-blue-500/20"><Icons.Facebook /></div>
+                  <span>Facebook SS Maju Legacy</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Kolum 3: Lokasi/Waktu */}
+            <div className="space-y-5">
+              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-yellow-500 pl-3">Waktu Operasi</h4>
+              <div className="text-sm text-gray-400 leading-relaxed">
+                <p className="font-bold text-white">Isnin - Jumaat </p>
+                <p>2:00 PM - 12:00 AM</p>
+                <p className="font-bold text-white">Sabtu - Ahad </p>
+                <p>10:00 AM- 12:00 AM</p>
+                <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
+              </div>
+            </div>
+          </div>
+
           <div className="h-px w-full bg-white/10 mb-10"></div>
-          <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
-            © 2026 Semua Hak Terpelihara.<br/>Kualiti Jati Terbaik Untuk Kediaman Anda.
-          </p>
+          <div className="text-center">
+            <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
+              © 2026 SSMAJU Legacy. Semua Hak Terpelihara.<br/>
+              Pakar Perabot Jati Berkualiti Tinggi.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
