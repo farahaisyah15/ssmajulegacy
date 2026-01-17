@@ -41,13 +41,16 @@ const ProductCard = ({ p, onSelect }) => {
         <p className={`text-[11px] font-bold uppercase tracking-wider mb-4 ${totalStok > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
           {totalStok > 0 ? `Stok: ${totalStok} Unit` : 'Stok Habis'}
         </p>
-        <div className="flex items-center justify-between border-t border-gray-50 pt-4">
-          <p className="text-xl font-black text-gray-900">
-            <span className="text-xs font-medium mr-1 text-blue-600">RM</span>
-            {Number(p.price).toLocaleString('en-MY')}
-          </p>
-          <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        <div className="flex flex-col border-t border-gray-50 pt-4">
+          <span className="text-[10px] font-bold text-blue-600 uppercase tracking-tighter">Bermula Dari</span>
+          <div className="flex items-center justify-between">
+            <p className="text-xl font-black text-gray-900">
+              <span className="text-xs font-medium mr-1">RM</span>
+              {Number(p.price).toLocaleString('en-MY')}
+            </p>
+            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </div>
           </div>
         </div>
       </div>
@@ -114,10 +117,8 @@ const App = () => {
             </div>
           </header>
 
-          {/* Search & Navigation Bar (Sticky) */}
           <div className="sticky top-0 z-50 -mt-10">
             <div className="max-w-6xl mx-auto px-4">
-              {/* Search */}
               <div className="relative group mb-6">
                 <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-600 transition-colors">
                   <Icons.Search />
@@ -131,7 +132,6 @@ const App = () => {
                 />
               </div>
 
-              {/* Filter Tabs - Baiki bahagian yang berterabur dalam gambar anda */}
               <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-2 shadow-sm border border-gray-100 flex items-center justify-center gap-2 md:gap-8 overflow-x-auto no-scrollbar">
                 {['Semua', 'Sofa', 'Meja Makan', 'Katil'].map(cat => (
                   <button 
@@ -153,7 +153,6 @@ const App = () => {
             </div>
           </div>
 
-          {/* Product Grid */}
           <main className="max-w-7xl mx-auto px-6 py-16">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {filteredData.length > 0 ? (
@@ -172,7 +171,6 @@ const App = () => {
           </main>
         </>
       ) : (
-        /* Gallery / Detail View */
         <div className="bg-white min-h-screen">
           <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-50 px-6 py-4 flex items-center justify-between">
             <button 
@@ -190,7 +188,6 @@ const App = () => {
             <header className="text-center mb-16">
               <span className="text-blue-600 font-black text-[10px] tracking-[0.3em] uppercase">{selectedProduct.cat}</span>
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
-              <p className="text-3xl font-black text-blue-600">RM {Number(selectedProduct.price).toLocaleString('en-MY')}</p>
             </header>
 
             <div className="space-y-24">
@@ -201,18 +198,21 @@ const App = () => {
                   </div>
                   
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">Pilihan Warna: {v.color}</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3">
+                        <h3 className="text-2xl font-bold text-gray-900">{v.color}</h3>
+                        <span className="text-lg font-black text-blue-600">RM {Number(v.price || selectedProduct.price).toLocaleString('en-MY')}</span>
+                      </div>
                       <p className={`text-sm font-bold uppercase tracking-widest mt-2 ${Number(v.stok) > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
-                        {Number(v.stok) > 0 ? `Unit Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
+                        {Number(v.stok) > 0 ? `Stok Yang Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
                       </p>
                     </div>
                     
                     <a 
-                      href={`https://wa.me/60143106207?text=Saya berminat dengan ${selectedProduct.name} (Warna: ${v.color}) - Harga: RM ${Number(selectedProduct.price).toLocaleString('en-MY')}`}
+                      href={`https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${v.color}) - Harga: RM ${Number(v.price || selectedProduct.price).toLocaleString('en-MY')}${Number(v.stok) > 0 ? '' : '. Bila stok akan datang?'}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-3 bg-[#22c55e] hover:bg-[#16a34a] hover:scale-105 active:scale-95 text-white px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl shadow-emerald-200 transition-all"
+                      className={`inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all ${Number(v.stok) > 0 ? 'bg-[#22c55e] hover:bg-[#16a34a] shadow-emerald-200' : 'bg-[#22c55e] hover:bg-[#16a34a] shadow-emerald-200'} text-white active:scale-95`}
                     >
                       <Icons.MessageCircle /> 
                       {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "TANYA STOK AKAN DATANG"}
@@ -225,7 +225,6 @@ const App = () => {
         </div>
       )}
 
-      {/* Footer */}
       <footer className="bg-[#0f172a] text-white py-20 px-6 text-center mt-20">
         <div className="max-w-xl mx-auto">
           <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
