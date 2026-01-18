@@ -202,27 +202,43 @@ const App = () => {
             <header className="text-center mb-16">
               <span className="text-blue-600 font-black text-[10px] tracking-[0.3em] uppercase">{selectedProduct.cat}</span>
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
-            </header>
-            <div className="space-y-24">
+</header>
+            
+            {/* Grid 1 kolum (mobile), 2 kolum (laptop) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {selectedProduct.variants?.map((v, i) => (
                 <div key={i} className="group animate-in fade-in slide-in-from-bottom-10 duration-700">
-                  <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl bg-gray-50 mb-8 border border-gray-100">
-                    <img src={v.img} className="w-full h-auto object-cover transition-transform duration-1000 group-hover:scale-105" alt={v.color} />
+                  {/* Gambar Varians */}
+                  <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-50 mb-6 border border-gray-100 aspect-square">
+                    <img 
+                      src={v.img} 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
+                      alt={v.color} 
+                    />
                   </div>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3">
-                        <h3 className="text-2xl font-bold text-gray-900">{v.color}</h3>
-                        <span className="text-lg font-black text-blue-600">RM {Number(v.price || selectedProduct.price).toLocaleString('en-MY')}</span>
+
+                  {/* Info Varians */}
+                  <div className="px-2 mb-6">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">{v.color}</h3>
+                        <p className={`text-[11px] font-bold uppercase tracking-widest mt-1 ${Number(v.stok) > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                          {Number(v.stok) > 0 ? `Stok Yang Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
+                        </p>
                       </div>
-                      <p className={`text-sm font-bold uppercase tracking-widest mt-2 ${Number(v.stok) > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
-                        {Number(v.stok) > 0 ? `Stok Yang Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
-                      </p>
+                      <span className="text-lg font-black text-blue-600">RM {Number(v.price || selectedProduct.price).toLocaleString('en-MY')}</span>
                     </div>
-                    <a href={`https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${v.color})`)}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all bg-[#22c55e] hover:bg-[#16a34a] text-white active:scale-95">
-                      <Icons.MessageCircle /> {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "TANYA STOK AKAN DATANG"}
-                    </a>
                   </div>
+
+                  {/* Butang WhatsApp */}
+                  <a 
+                    href={`https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${v.color})`)}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all bg-[#22c55e] hover:bg-[#16a34a] text-white active:scale-95"
+                  >
+                    <Icons.MessageCircle /> {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "TANYA STOK AKAN DATANG"}
+                  </a>
                 </div>
               ))}
             </div>
