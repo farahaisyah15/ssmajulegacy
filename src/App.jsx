@@ -122,7 +122,7 @@ const App = () => {
     <div className="bg-[#fafafa] min-h-screen font-sans text-gray-900">
       {currentScreen === 'home' ? ( 
         <>
-          <header className="relative h-[75vh] min-h-[600px] flex items-center justify-center text-center px-6 overflow-hidden bg-slate-900">
+          <header className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-center px-6 overflow-hidden bg-slate-900">
             <div className="absolute inset-0 overflow-hidden">
                <img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover opacity-60 scale-105" alt="Hero" style={{animationDuration: '30s'}} />
             </div>
