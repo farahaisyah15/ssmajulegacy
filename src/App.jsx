@@ -78,6 +78,7 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [visualVariants, setVisualVariants] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const emptyProduct = {
     name: '',
@@ -87,6 +88,11 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
     note: '',
     variants: [] 
   };
+
+  const filteredProducts = perabotData.filter(p => 
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    p.cat.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const moveImage = async (fullUrl, oldCat, oldName, newCat, newName) => {
     try {
@@ -306,6 +312,26 @@ const handleSave = async () => {
           </div>
         </div>
 
+        <div className="mb-8">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+              <Icons.Search size={18} />
+            </span>
+            <input 
+              type="text"
+              placeholder="Cari nama perabot atau kategori..."
+              className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all shadow-sm"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+          {searchTerm && (
+            <p className="text-xs text-gray-500 mt-2 ml-2">
+              Menunjukkan {filteredProducts.length} hasil carian...
+            </p>
+          )}
+        </div>
+
         <div className="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm text-gray-600">
@@ -319,10 +345,10 @@ const handleSave = async () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {perabotData.map(p => {
+                {filteredProducts.map(p => {
                   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
                   return (
-                    <tr key={p.id} className="hover:bg-gray-50">
+                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                       <td className="p-4 font-bold text-gray-900 flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 border border-gray-200">
                           {p.thumb ? <img src={p.thumb} className="w-full h-full object-cover" alt="" /> : <div className="w-full h-full flex items-center justify-center text-gray-300 text-[8px]">No IMG</div>}
@@ -367,7 +393,7 @@ const handleSave = async () => {
           <div className="bg-white rounded-3xl p-8 max-w-3xl w-full shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
               <h2 className="text-xl font-black uppercase tracking-widest">{editingId ? "Edit Produk" : "Tambah Produk Baru"}</h2>
-              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-red-500"><Icons.X /></button>
+              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-red-500 transition-colors"><Icons.X /></button>
             </div>
             
             <div className="space-y-6">
@@ -378,7 +404,7 @@ const handleSave = async () => {
                     <select 
                       value={editForm.cat} 
                       onChange={e => setEditForm({...editForm, cat: e.target.value})}
-                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold outline-none"
                     >
                       <option value="Sofa">Sofa</option>
                       <option value="Meja Makan">Meja Makan</option>
@@ -397,18 +423,18 @@ const handleSave = async () => {
                     <input 
                       value={editForm.name} 
                       onChange={e => setEditForm({...editForm, name: e.target.value})}
-                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold outline-none"
                       placeholder="Contoh: Pankin"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Harga Mula (RM)</label>
+                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Harga Bermula dari (RM)</label>
                     <input 
                       type="number"
                       value={editForm.price} 
                       onChange={e => setEditForm({...editForm, price: e.target.value})}
-                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold outline-none"
                     />
                   </div>
 
@@ -417,7 +443,7 @@ const handleSave = async () => {
                     <input 
                       value={editForm.note || ''} 
                       onChange={e => setEditForm({...editForm, note: e.target.value})}
-                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 text-sm text-red-500"
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 text-sm text-red-500 outline-none"
                       placeholder="Contoh: Pre-order sahaja"
                     />
                   </div>
@@ -457,21 +483,20 @@ const handleSave = async () => {
               <div>
                 <div className="flex justify-between items-center mb-4">
                    <label className="block text-xs font-bold uppercase text-gray-400">Senarai Varians & Stok</label>
-                   <button onClick={addVariant} className="px-3 py-1 bg-green-50 text-green-600 rounded-lg text-[10px] font-bold uppercase hover:bg-green-100">
+                   <button onClick={addVariant} className="px-3 py-1 bg-green-50 text-green-600 rounded-lg text-[10px] font-bold uppercase hover:bg-green-100 transition-colors">
                      + Tambah Warna
                    </button>
                 </div>
 
                 <div className="space-y-3">
                   {visualVariants.map((v, idx) => (
-                    <div key={idx} className="flex flex-col md:flex-row gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100 items-start animate-in fade-in slide-in-from-bottom-2">
+                    <div key={idx} className="flex flex-col md:flex-row gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100 items-start animate-in fade-in slide-in-from-bottom-2 duration-300">
                       
-                      {/* Gambar Varians */}
                       <div className="shrink-0 flex flex-col items-center gap-2">
                         <div className="w-16 h-16 bg-white rounded-lg border border-gray-200 overflow-hidden relative">
                            {v.img ? <img src={v.img} className="w-full h-full object-cover" alt="" /> : <span className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-300">No Img</span>}
                         </div>
-                        <label className="cursor-pointer bg-white px-3 py-1 rounded-md border border-gray-200 text-[9px] font-bold text-gray-600 hover:bg-gray-100 shadow-sm">
+                        <label className="cursor-pointer bg-white px-3 py-1 rounded-md border border-gray-200 text-[9px] font-bold text-gray-600 hover:bg-gray-100 shadow-sm transition-colors">
                           {uploading ? "..." : "Upload"}
                           <input 
                             type="file" 
@@ -489,7 +514,7 @@ const handleSave = async () => {
                           <input 
                             value={v.color} 
                             onChange={e => updateVariant(idx, 'color', e.target.value)}
-                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-bold"
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-bold outline-none"
                             placeholder="Contoh: Dark Walnut"
                           />
                         </div>
@@ -499,7 +524,7 @@ const handleSave = async () => {
                             type="number"
                             value={v.price} 
                             onChange={e => updateVariant(idx, 'price', e.target.value)}
-                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono"
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono outline-none"
                           />
                         </div>
                         <div>
@@ -508,12 +533,12 @@ const handleSave = async () => {
                             type="number"
                             value={v.stok} 
                             onChange={e => updateVariant(idx, 'stok', e.target.value)}
-                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono"
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono outline-none"
                           />
                         </div>
                       </div>
 
-                      <button onClick={() => removeVariant(idx)} className="p-2 text-red-400 hover:text-red-600 self-center">
+                      <button onClick={() => removeVariant(idx)} className="p-2 text-red-400 hover:text-red-600 self-center transition-colors">
                         <Icons.X />
                       </button>
                     </div>
@@ -528,8 +553,8 @@ const handleSave = async () => {
               <button 
                 onClick={handleSave} 
                 disabled={uploading}
-                className={`w-full py-4 text-white rounded-xl font-bold uppercase tracking-widest shadow-lg mt-4 flex items-center justify-center gap-2
-                  ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                className={`w-full py-4 text-white rounded-xl font-bold uppercase tracking-widest shadow-lg mt-4 flex items-center justify-center gap-2 transition-all
+                  ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 active:scale-95'}`}
               >
                 <Icons.Save /> {uploading ? "Tunggu..." : "Simpan Perubahan"}
               </button>
