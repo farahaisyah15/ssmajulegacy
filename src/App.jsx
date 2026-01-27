@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 
-// 1. Ikon SVG Custom
 const Icons = {
   Search: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>,
   ChevronLeft: () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>,
@@ -19,12 +18,17 @@ const Icons = {
   WhatsApp: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" stroke="white" strokeWidth="0.5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   ),
-  TikTok: () => (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.84-.6-4.13-1.46-.14 2.45-.12 4.9.01 7.35.11 1.95-.33 3.99-1.61 5.56-1.34 1.71-3.6 2.61-5.74 2.53-2.31-.08-4.57-1.25-5.76-3.25-1.52-2.38-1.29-5.75.52-7.89 1.4-1.74 3.73-2.61 5.91-2.22V14.5c-1.11-.27-2.36-.05-3.23.72-.94.77-1.3 2.1-1.02 3.26.25 1.16 1.25 2.13 2.43 2.34 1.16.23 2.48-.15 3.19-1.1.66-.81.87-1.92.83-2.93-.05-3.66-.02-7.32-.03-10.98.01-2.26 0-4.52.02-6.79z" fill="#000000"/><path d="M12.525.02c-.02 2.27-.01 4.53-.02 6.79 0 3.66-.02 7.32.03 10.98.04 1.01-.17 2.12-.83 2.93-.71.95-2.03 1.33-3.19 1.1-1.18-.21-2.18-1.18-2.43-2.34-.28-1.16.08-2.49 1.02-3.26.87-.77 2.12-.99 3.23-.72v-4.04c-2.18-.39-4.51.48-5.91 2.22-1.81 2.14-2.04 5.51-.52 7.89 1.19 2 3.45 3.17 5.76 3.25 2.14.08 4.4-.82 5.74-2.53 1.28-1.57 1.72-3.61 1.61-5.56-.13-2.45-.15-4.9-.01-7.35 1.29.86 2.69 1.29 4.13 1.46V5.96c-1.54-.17-3.12-.68-4.24-1.79-1.12-1.08-1.67-2.64-1.75-4.17-1.3.01-2.6.01-3.91.02z" fill="#ff2d55" style={{mixBlendMode:'screen'}}/><path d="M12.525.02c-.02 2.27-.01 4.53-.02 6.79 0 3.66-.02 7.32.03 10.98.04 1.01-.17 2.12-.83 2.93-.71.95-2.03 1.33-3.19 1.1-1.18-.21-2.18-1.18-2.43-2.34-.28-1.16.08-2.49 1.02-3.26.87-.77 2.12-.99 3.23-.72v-4.04c-2.18-.39-4.51.48-5.91 2.22-1.81 2.14-2.04 5.51-.52 7.89 1.19 2 3.45 3.17 5.76 3.25 2.14.08 4.4-.82 5.74-2.53 1.28-1.57 1.72-3.61 1.61-5.56-.13-2.45-.15-4.9-.01-7.35 1.29.86 2.69 1.29 4.13 1.46V5.96c-1.54-.17-3.12-.68-4.24-1.79-1.12-1.08-1.67-2.64-1.75-4.17-1.3.01-2.6.01-3.91.02z" fill="#25f4ee" style={{mixBlendMode:'multiply'}}/></svg>
-  ),
   Facebook: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/><path d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.67v2.613H7.078v3.47h3.047v8.385a12.09 12.09 0 001.938.157c.65 0 1.284-.052 1.906-.152v-8.39h2.702z" fill="white"/></svg>
   ),
+  TikTok: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.84-.6-4.13-1.46-.14 2.45-.12 4.9.01 7.35.11 1.95-.33 3.99-1.61 5.56-1.34 1.71-3.6 2.61-5.74 2.53-2.31-.08-4.57-1.25-5.76-3.25-1.52-2.38-1.29-5.75.52-7.89 1.4-1.74 3.73-2.61 5.91-2.22V14.5c-1.11-.27-2.36-.05-3.23.72-.94.77-1.3 2.1-1.02 3.26.25 1.16 1.25 2.13 2.43 2.34 1.16.23 2.48-.15 3.19-1.1.66-.81.87-1.92.83-2.93-.05-3.66-.02-7.32-.03-10.98.01-2.26 0-4.52.02-6.79z" fill="#000000"/><path d="M12.525.02c-.02 2.27-.01 4.53-.02 6.79 0 3.66-.02 7.32.03 10.98.04 1.01-.17 2.12-.83 2.93-.71.95-2.03 1.33-3.19 1.1-1.18-.21-2.18-1.18-2.43-2.34-.28-1.16.08-2.49 1.02-3.26.87-.77 2.12-.99 3.23-.72v-4.04c-2.18-.39-4.51.48-5.91 2.22-1.81 2.14-2.04 5.51-.52 7.89 1.19 2 3.45 3.17 5.76 3.25 2.14.08 4.4-.82 5.74-2.53 1.28-1.57 1.72-3.61 1.61-5.56-.13-2.45-.15-4.9-.01-7.35 1.29.86 2.69 1.29 4.13 1.46V5.96c-1.54-.17-3.12-.68-4.24-1.79-1.12-1.08-1.67-2.64-1.75-4.17-1.3.01-2.6.01-3.91.02z" fill="#25f4ee" style={{mixBlendMode:'multiply'}}/></svg>
+  ),
+  Edit: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>,
+  Save: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>,
+  X: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>,
+  Plus: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+  Trash: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
 };
 const LOGO_SSMAJU = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/logossmajulegacy.jpg";
 
@@ -42,10 +46,10 @@ const ProductCard = ({ p, onSelect }) => {
         <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{p.name}</h3>
         <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${totalStok > 0 ? 'text-emerald-600' : 'text-red-500'}`}>{totalStok > 0 ? `Stok: ${totalStok} Unit` : 'Stok Habis'}</p>
         
-{p.note && (
+        {p.note && (
           <div className="flex items-start gap-1 mb-4">
             <span className="text-blue-500 text-[12px]">*</span>
-            <p className="text-[12px] text-red-400 italic leading-tight">
+            <p className="text-[12px] text-red-400 italic leading-tight line-clamp-2">
               {p.note}
             </p>
           </div>
@@ -68,6 +72,475 @@ const ProductCard = ({ p, onSelect }) => {
   );
 };
 
+const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [visualVariants, setVisualVariants] = useState([]);
+
+  const emptyProduct = {
+    name: '',
+    cat: 'Sofa',
+    price: '',
+    thumb: '',
+    note: '',
+    variants: [] 
+  };
+
+  const moveImage = async (fullUrl, oldCat, oldName, newCat, newName) => {
+    try {
+      if (!fullUrl) return null;
+      const urlParts = fullUrl.split('/gambar%20jati/');
+      if (urlParts.length < 2) return fullUrl;
+
+      const relativePath = decodeURIComponent(urlParts[1]);
+      const fileName = relativePath.split('/').pop();
+
+      const oldPath = `${oldCat}/${oldName}/${fileName}`;
+      const newPath = `${newCat}/${newName}/${fileName}`;
+
+      if (oldPath === newPath) return fullUrl;
+
+      const { error } = await supabase.storage
+        .from('gambar jati')
+        .move(oldPath, newPath);
+
+      if (error) {
+        console.warn("Gagal pindah fail:", error.message);
+        return fullUrl;
+      }
+
+      const { data } = supabase.storage
+        .from('gambar jati')
+        .getPublicUrl(newPath);
+
+      return data.publicUrl;
+    } catch (err) {
+      console.error(err);
+      return fullUrl;
+    }
+  };
+
+  const handleFileUpload = async (file, type, variantIndex = null) => {
+    if (!file) return;
+    if (!editForm.cat || !editForm.name) {
+      alert("⚠️ Sila isi Kategori dan Nama Produk dahulu sebelum upload gambar!");
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const cleanCat = editForm.cat.trim();
+      const cleanName = editForm.name.trim();
+      const fileExt = file.name.split('.').pop();
+      
+      let fileName = '';
+      let filePath = '';
+
+      if (type === 'thumb') {
+        fileName = `Thumbnail_${Date.now()}.${fileExt}`;
+        filePath = `${cleanCat}/${cleanName}/${fileName}`;
+      } else if (type === 'variant') {
+        const colorName = visualVariants[variantIndex]?.color 
+          ? visualVariants[variantIndex].color.trim() 
+          : `Variant_${Date.now()}`;
+        
+        fileName = `${colorName}.${fileExt}`;
+        filePath = `${cleanCat}/${cleanName}/${fileName}`;
+      }
+
+      const { error: uploadError } = await supabase.storage
+        .from('gambar jati')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('gambar jati')
+        .getPublicUrl(filePath);
+
+      if (type === 'thumb') {
+        setEditForm(prev => ({ ...prev, thumb: publicUrl }));
+      } else if (type === 'variant') {
+        const newVariants = [...visualVariants];
+        newVariants[variantIndex].img = publicUrl;
+        setVisualVariants(newVariants);
+      }
+
+    } catch (error) {
+      alert("Gagal upload: " + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const openAdd = () => {
+    setEditingId(null);
+    setEditForm(emptyProduct);
+    setVisualVariants([{ color: "Warna Standard", price: 0, stok: 10, img: "" }]);
+    setIsModalOpen(true);
+  };
+
+  const openEdit = (product) => {
+    setEditingId(product.id);
+    setEditForm({ ...product });
+    try {
+      const parsed = typeof product.variants === 'string' ? JSON.parse(product.variants) : product.variants;
+      setVisualVariants(Array.isArray(parsed) ? parsed : []);
+    } catch (e) {
+      setVisualVariants([]);
+    }
+    setIsModalOpen(true);
+  };
+
+  const addVariant = () => {
+    setVisualVariants([...visualVariants, { color: "", price: 0, stok: 0, img: "" }]);
+  };
+
+  const removeVariant = (index) => {
+    const newVars = visualVariants.filter((_, i) => i !== index);
+    setVisualVariants(newVars);
+  };
+
+  const updateVariant = (index, field, value) => {
+    const newVars = [...visualVariants];
+    newVars[index][field] = value;
+    setVisualVariants(newVars);
+  };
+
+  const handleDelete = async (id) => {
+    if(!window.confirm("Adakah anda pasti mahu memadam produk ini?")) return;
+    try {
+      const { error } = await supabase.from('perabot').delete().eq('id', id);
+      if (error) throw error;
+      alert("Produk berjaya dipadam.");
+      refreshData();
+    } catch (err) {
+      alert("Gagal memadam: " + err.message);
+    }
+  };
+
+const handleSave = async () => {
+    try {
+      let finalThumb = editForm.thumb;
+      
+      let finalVariants = visualVariants.map(v => ({
+        ...v,
+        price: Number(v.price),
+        stok: Number(v.stok)
+      }));
+
+      if (editingId) {
+        const originalData = perabotData.find(p => p.id === editingId);
+        
+        if (originalData && (originalData.cat !== editForm.cat || originalData.name !== editForm.name)) {
+          const confirmMove = window.confirm("Anda menukar Nama/Kategori. Adakah anda mahu menyusun semula folder gambar dalam Storage? (Ini mungkin mengambil masa)");
+          
+          if (confirmMove) {
+            setUploading(true); 
+
+            if (editForm.thumb) {
+              finalThumb = await moveImage(
+                editForm.thumb, 
+                originalData.cat, originalData.name, 
+                editForm.cat, editForm.name          
+              );
+            }
+
+            for (let i = 0; i < finalVariants.length; i++) {
+              if (finalVariants[i].img) {
+                const newVarUrl = await moveImage(
+                  finalVariants[i].img,
+                  originalData.cat, originalData.name,
+                  editForm.cat, editForm.name
+                );
+                finalVariants[i].img = newVarUrl;
+              }
+            }
+            setUploading(false);
+          }
+        }
+      }
+
+      const finalData = {
+        ...editForm,
+        thumb: finalThumb, 
+        price: Number(editForm.price),
+        variants: finalVariants
+      };
+
+      if (editingId) {
+        const { error } = await supabase.from('perabot').update(finalData).eq('id', editingId);
+        if (error) throw error;
+        alert('Data dikemas kini & Folder disusun!');
+      } else {
+        const { error } = await supabase.from('perabot').insert([finalData]);
+        if (error) throw error;
+        alert('Produk baru berjaya ditambah!');
+      }
+
+      setIsModalOpen(false);
+      refreshData();
+    } catch (err) {
+      setUploading(false);
+      alert('Ralat: ' + err.message);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">Admin Dashboard</h1>
+            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mt-1">Urus Katalog & Stok</p>
+          </div>
+          <div className="flex gap-2">
+            <button onClick={openAdd} className="px-5 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold uppercase tracking-widest text-white shadow-lg flex items-center gap-2">
+              <Icons.Plus /> Tambah Produk
+            </button>
+            <button onClick={onBack} className="px-5 py-3 bg-gray-200 hover:bg-gray-300 rounded-xl text-xs font-bold uppercase tracking-widest text-gray-700">
+              Keluar
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm text-gray-600">
+              <thead className="bg-gray-100 text-xs uppercase font-bold text-gray-500">
+                <tr>
+                  <th className="p-4">Produk</th>
+                  <th className="p-4">Kategori</th>
+                  <th className="p-4">Harga Bermula dari (RM)</th>
+                  <th className="p-4 text-center">Total Stok</th>
+                  <th className="p-4 text-center">Tindakan</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {perabotData.map(p => {
+                  const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
+                  return (
+                    <tr key={p.id} className="hover:bg-gray-50">
+                      <td className="p-4 font-bold text-gray-900 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 border border-gray-200">
+                          {p.thumb ? <img src={p.thumb} className="w-full h-full object-cover" alt="" /> : <div className="w-full h-full flex items-center justify-center text-gray-300 text-[8px]">No IMG</div>}
+                        </div>
+                        {p.name}
+                      </td>
+                      <td className="p-4">
+                        <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded-md text-[10px] font-bold uppercase">{p.cat}</span>
+                      </td>
+                      <td className="p-4 font-mono">{Number(p.price).toLocaleString()}</td>
+                      <td className="p-4 text-center">
+                        <span className={`px-2 py-1 rounded-md text-[10px] font-bold ${
+                          totalStok === 0 
+                            ? 'bg-red-100 text-red-700'      
+                            : totalStok < 3 
+                            ? 'bg-yellow-100 text-yellow-700'
+                            : 'bg-green-100 text-green-700'}`}>
+                          {totalStok} Unit
+                        </span>
+                      </td>
+                      <td className="p-4 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                          <button onClick={() => openEdit(p)} className="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                            <Icons.Edit />
+                          </button>
+                          <button onClick={() => handleDelete(p.id)} className="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition-all">
+                            <Icons.Trash />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in zoom-in-95 duration-300">
+          <div className="bg-white rounded-3xl p-8 max-w-3xl w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+              <h2 className="text-xl font-black uppercase tracking-widest">{editingId ? "Edit Produk" : "Tambah Produk Baru"}</h2>
+              <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-red-500"><Icons.X /></button>
+            </div>
+            
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                   <div>
+                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Kategori</label>
+                    <select 
+                      value={editForm.cat} 
+                      onChange={e => setEditForm({...editForm, cat: e.target.value})}
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                    >
+                      <option value="Sofa">Sofa</option>
+                      <option value="Meja Makan">Meja Makan</option>
+                      <option value="Katil">Katil</option>
+                      <option value="Laci Tepi">Laci Tepi</option>
+                      <option value="Bidai">Bidai</option>
+                      <option value="Buaian">Buaian</option>
+                      <option value="Kerusi">Kerusi</option>
+                      <option value="Cermin">Cermin</option>
+                      <option value="Tingkap">Tingkap</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Nama Produk</label>
+                    <input 
+                      value={editForm.name} 
+                      onChange={e => setEditForm({...editForm, name: e.target.value})}
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                      placeholder="Contoh: Pankin"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Harga Mula (RM)</label>
+                    <input 
+                      type="number"
+                      value={editForm.price} 
+                      onChange={e => setEditForm({...editForm, price: e.target.value})}
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold"
+                    />
+                  </div>
+
+                   <div>
+                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Nota / Amaran</label>
+                    <input 
+                      value={editForm.note || ''} 
+                      onChange={e => setEditForm({...editForm, note: e.target.value})}
+                      className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 text-sm text-red-500"
+                      placeholder="Contoh: Pre-order sahaja"
+                    />
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+                  <label className="block text-xs font-bold uppercase text-gray-400 mb-3">Gambar Utama (Thumbnail)</label>
+                  
+                  <div className="flex flex-col items-center gap-4">
+                    <div className="w-32 h-40 bg-gray-200 rounded-xl overflow-hidden shadow-inner flex items-center justify-center">
+                       {editForm.thumb ? (
+                         <img src={editForm.thumb} className="w-full h-full object-cover" alt="Preview" />
+                       ) : (
+                         <span className="text-gray-400 text-[10px] text-center px-2">Tiada Gambar</span>
+                       )}
+                    </div>
+                    
+                    <div className="w-full">
+                      <label className={`block w-full text-center py-3 rounded-xl border-2 border-dashed cursor-pointer transition-all ${uploading ? 'bg-gray-100 border-gray-300' : 'border-blue-300 bg-blue-50 hover:bg-blue-100'}`}>
+                        <span className="text-xs font-bold text-blue-600">{uploading ? "Sedang Upload..." : "Pilih Gambar Thumbnail"}</span>
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          className="hidden"
+                          disabled={uploading}
+                          onChange={(e) => handleFileUpload(e.target.files[0], 'thumb')}
+                        />
+                      </label>
+                      <p className="text-[9px] text-gray-400 mt-2 text-center">Auto-save ke: {editForm.cat}/{editForm.name}/...</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-100 my-4"></div>
+
+              <div>
+                <div className="flex justify-between items-center mb-4">
+                   <label className="block text-xs font-bold uppercase text-gray-400">Senarai Varians & Stok</label>
+                   <button onClick={addVariant} className="px-3 py-1 bg-green-50 text-green-600 rounded-lg text-[10px] font-bold uppercase hover:bg-green-100">
+                     + Tambah Warna
+                   </button>
+                </div>
+
+                <div className="space-y-3">
+                  {visualVariants.map((v, idx) => (
+                    <div key={idx} className="flex flex-col md:flex-row gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100 items-start animate-in fade-in slide-in-from-bottom-2">
+                      
+                      {/* Gambar Varians */}
+                      <div className="shrink-0 flex flex-col items-center gap-2">
+                        <div className="w-16 h-16 bg-white rounded-lg border border-gray-200 overflow-hidden relative">
+                           {v.img ? <img src={v.img} className="w-full h-full object-cover" alt="" /> : <span className="absolute inset-0 flex items-center justify-center text-[8px] text-gray-300">No Img</span>}
+                        </div>
+                        <label className="cursor-pointer bg-white px-3 py-1 rounded-md border border-gray-200 text-[9px] font-bold text-gray-600 hover:bg-gray-100 shadow-sm">
+                          {uploading ? "..." : "Upload"}
+                          <input 
+                            type="file" 
+                            accept="image/*" 
+                            className="hidden" 
+                            disabled={uploading}
+                            onChange={(e) => handleFileUpload(e.target.files[0], 'variant', idx)}
+                          />
+                        </label>
+                      </div>
+
+                      <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-3 w-full">
+                        <div>
+                          <label className="text-[9px] font-bold uppercase text-gray-400">Nama Warna</label>
+                          <input 
+                            value={v.color} 
+                            onChange={e => updateVariant(idx, 'color', e.target.value)}
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-bold"
+                            placeholder="Contoh: Dark Walnut"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[9px] font-bold uppercase text-gray-400">Harga (RM)</label>
+                          <input 
+                            type="number"
+                            value={v.price} 
+                            onChange={e => updateVariant(idx, 'price', e.target.value)}
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-[9px] font-bold uppercase text-gray-400">Stok</label>
+                          <input 
+                            type="number"
+                            value={v.stok} 
+                            onChange={e => updateVariant(idx, 'stok', e.target.value)}
+                            className="w-full p-2 bg-white rounded-lg border border-gray-200 text-xs font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <button onClick={() => removeVariant(idx)} className="p-2 text-red-400 hover:text-red-600 self-center">
+                        <Icons.X />
+                      </button>
+                    </div>
+                  ))}
+                  
+                  {visualVariants.length === 0 && (
+                    <p className="text-center text-xs text-gray-400 italic py-4">Tiada varians. Sila tambah sekurang-kurangnya satu.</p>
+                  )}
+                </div>
+              </div>
+
+              <button 
+                onClick={handleSave} 
+                disabled={uploading}
+                className={`w-full py-4 text-white rounded-xl font-bold uppercase tracking-widest shadow-lg mt-4 flex items-center justify-center gap-2
+                  ${uploading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+              >
+                <Icons.Save /> {uploading ? "Tunggu..." : "Simpan Perubahan"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -77,37 +550,52 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [showCatBar, setShowCatBar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [adminTapCount, setAdminTapCount] = useState(0);
 
-  // Ambil Data dari Supabase
+  const ambilData = async () => {
+    setLoading(true);
+    const { data, error } = await supabase.from('perabot').select('*').order('id', { ascending: true });
+    if (error) console.error("Error tarik data:", error);
+    else setPerabotData(data || []);
+    setLoading(false);
+  };
+
   useEffect(() => {
-    const ambilData = async () => {
-      setLoading(true);
-      const { data, error } = await supabase.from('perabot').select('*');
-      if (error) console.error("Error tarik data:", error);
-      else setPerabotData(data || []);
-      setLoading(false);
-    };
     ambilData();
   }, []);
 
-  // Logic scroll ( Cat Bar hilang)
   useEffect(() => {
     const controlCatBar = () => {
-    const currentScrollY = window.scrollY;
-
-    if (Math.abs(currentScrollY - lastScrollY) < 5) return;
-
-    if (currentScrollY > lastScrollY && currentScrollY > 300) {
-      setShowCatBar(false);
-    } else {
-      setShowCatBar(true);
-    }
-    
-    setLastScrollY(currentScrollY);
-  };
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) < 5) return;
+      if (currentScrollY > lastScrollY && currentScrollY > 300) {
+        setShowCatBar(false);
+      } else {
+        setShowCatBar(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
     window.addEventListener('scroll', controlCatBar);
     return () => window.removeEventListener('scroll', controlCatBar);
   }, [lastScrollY]);
+
+  const handleSecretTap = () => {
+    setAdminTapCount(prev => {
+      const newCount = prev + 1;
+      if (newCount === 5) { 
+        const pwd = prompt("🔐 ADMIN ACCESS: Masukkan Kod Keselamatan");
+        if (pwd === "011368") {
+          setCurrentScreen('admin');
+          setAdminTapCount(0);
+        } else {
+          alert("Akses Ditolak.");
+          setAdminTapCount(0);
+        }
+        return 0;
+      }
+      return newCount;
+    });
+  };
 
   const categoryList = [
     { id: 'Semua', label: 'Semua', icon: <Icons.All /> },
@@ -137,8 +625,12 @@ const App = () => {
     </div>
   );
 
+  if (currentScreen === 'admin') {
+    return <AdminDashboard perabotData={perabotData} refreshData={ambilData} onBack={() => setCurrentScreen('home')} />;
+  }
+
   return (
-    <div className="bg-[#fafafa] min-h-screen font-sans text-gray-900">
+    <div className="bg-[#fafafa] min-h-screen font-sans text-gray-900 relative">
       {currentScreen === 'home' ? ( 
         <>
           <header className="relative h-[60vh] min-h-[400px] flex items-center justify-center text-center px-6 overflow-hidden bg-slate-900">
@@ -146,16 +638,19 @@ const App = () => {
                <img src="https://images.unsplash.com/photo-1598928636135-d146006ff4be?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover opacity-60 scale-105" alt="Hero" style={{animationDuration: '30s'}} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#fafafa]"></div>
+            
             <div className="relative z-10 max-w-5xl flex flex-col items-center">
               <div className="inline-flex items-center gap-3 px-6 py-2 border border-yellow-600/40 rounded-full bg-black/40 backdrop-blur-md mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
                 <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-[0.3em]">Koleksi Eksklusif 2026</span>
               </div>
+              
               <h1 className="text-5xl md:text-8xl font-serif text-white mb-6 tracking-tight leading-[1.1]">
                 Perabot <span className="italic text-yellow-500 font-serif"> Premium Jati</span>
                 <br />
                 <span className="text-2xl md:text-5xl font-sans font-light tracking-[0.3em] uppercase mt-4 block text-white/90">Terus dari Kilang</span>
               </h1>
+
               <div className="flex items-center gap-4">
                 <div className="h-[1px] w-12 bg-white/30 hidden md:block"></div>
                 <p className="text-gray-300 text-xs md:text-sm tracking-[0.2em] uppercase font-light max-w-xl leading-relaxed">by ssmaju legacy</p>
@@ -164,10 +659,8 @@ const App = () => {
             </div>
           </header>
 
-          {/* Sticky Search & Category Bar */}
           <div className="sticky top-0 z-50 -mt-8 px-4">
             <div className="max-w-3xl mx-auto space-y-2">
-              {/* Search Bar - Sentiasa Ada */}
               <div className="relative shadow-xl">
                 <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"><Icons.Search /></div>
                 <input 
@@ -179,7 +672,6 @@ const App = () => {
                 />
               </div>
 
-              {/* Category Bar - Boleh Hilang */}
               <div className={`transition-all duration-500 ease-in-out origin-top ${showCatBar ? 'opacity-100 scale-100 h-auto' : 'opacity-0 scale-95 pointer-events-none h-0 overflow-hidden'}`}>
                 <div className="bg-white/95 backdrop-blur-xl rounded-2xl p-1 shadow-md border border-gray-100">
                   <div className="grid grid-cols-5 md:grid-cols-10 gap-1">
@@ -221,13 +713,11 @@ const App = () => {
             <header className="text-center mb-16">
               <span className="text-blue-600 font-black text-[10px] tracking-[0.3em] uppercase">{selectedProduct.cat}</span>
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
-</header>
+            </header>
             
-            {/* Grid 1 kolum (mobile), 2 kolum (laptop) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {selectedProduct.variants?.map((v, i) => (
                 <div key={i} className="group animate-in fade-in slide-in-from-bottom-10 duration-700">
-                  {/* Gambar Varians */}
                   <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-50 mb-6 border border-gray-100 aspect-square">
                     <img 
                       src={v.img} 
@@ -236,7 +726,6 @@ const App = () => {
                     />
                   </div>
 
-                  {/* Info Varians */}
                   <div className="px-2 mb-6">
                     <div className="flex justify-between items-start mb-2">
                       <div>
@@ -249,7 +738,6 @@ const App = () => {
                     </div>
                   </div>
 
-                  {/* Butang WhatsApp */}
                   <a 
                     href={`https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${v.color})`)}`} 
                     target="_blank" 
@@ -265,63 +753,73 @@ const App = () => {
         </div>
       )}
 
-      <footer className="bg-[#0f172a] text-white py-20 px-6 mt-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
-            <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-            <div className="space-y-5">
-              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
-              <div className="flex flex-col gap-4">
-                <a href="https://wa.me/601156588884" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                  <span>Amka (Sales)</span>
-                </a>
-                <a href="https://wa.me/601136829632" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                  <span>Pie (Sales)</span>
-                </a>
-                <a href="https://wa.me/60123456789" target="_blank" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                  <span>Pejabat / Office</span>
-                </a>
+      {currentScreen === 'home' && (
+        <footer className="bg-[#0f172a] text-white py-20 px-6 mt-20">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
+              <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+              <div className="space-y-5">
+                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
+                <div className="flex flex-col gap-4">
+                  <a href="https://wa.me/601156588884" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                    <span>Amka (Sales)</span>
+                  </a>
+                  <a href="https://wa.me/601136829632" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                    <span>Pie (Sales)</span>
+                  </a>
+                  <a href="https://wa.me/60123456789" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+                    <span>Pejabat / Office</span>
+                  </a>
+                </div>
+              </div>
+              <div className="space-y-5">
+                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
+                <div className="flex flex-col gap-4">
+                  <a href="https://tiktok.com/@premiumjati" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
+                    <span>TikTok @premiumjati</span>
+                  </a>
+                  <a href="https://facebook.com/SSMajuLegacy" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-blue-500 transition-all">
+                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-blue-500/20"><Icons.Facebook /></div>
+                    <span>Facebook SS Maju Legacy</span>
+                  </a>
+                </div>
+              </div>
+              <div className="space-y-5">
+                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-yellow-500 pl-3">Waktu Operasi</h4>
+                <div className="text-sm text-gray-400 leading-relaxed">
+                  <p className="font-bold text-white">Isnin - Jumaat </p>
+                  <p>2:00 PM - 12:00 AM</p>
+                  <p className="font-bold text-white">Sabtu - Ahad </p>
+                  <p>10:00 AM- 12:00 AM</p>
+                  <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
+                </div>
               </div>
             </div>
-            <div className="space-y-5">
-              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
-              <div className="flex flex-col gap-4">
-                <a href="https://tiktok.com/@premiumjati" target="_blank" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
-                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
-                  <span>TikTok @premiumjati</span>
-                </a>
-                <a href="https://facebook.com/SSMajuLegacy" target="_blank" className="group flex items-center gap-3 text-sm hover:text-blue-500 transition-all">
-                  <div className="p-2 bg-white/5 rounded-lg group-hover:bg-blue-500/20"><Icons.Facebook /></div>
-                  <span>Facebook SS Maju Legacy</span>
-                </a>
-              </div>
+            <div className="h-px w-full bg-white/10 mb-10"></div>
+                        <div className="text-center">
+              <p 
+                onClick={handleSecretTap}
+                className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose cursor-pointer select-none active:scale-95 transition-transform"
+                title="Admin Access"
+              >
+                © 2026 SSMAJU Legacy. Semua Hak Terpelihara.
+              </p>
             </div>
-            <div className="space-y-5">
-              <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-yellow-500 pl-3">Waktu Operasi</h4>
-              <div className="text-sm text-gray-400 leading-relaxed">
-                <p className="font-bold text-white">Isnin - Jumaat </p>
-                <p>2:00 PM - 12:00 AM</p>
-                <p className="font-bold text-white">Sabtu - Ahad </p>
-                <p>10:00 AM- 12:00 AM</p>
-                <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
-              </div>
-            </div>
-          </div>
-          <div className="h-px w-full bg-white/10 mb-10"></div>
-          <div className="text-center">
+            <div className="text-center">
             <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
-              © 2026 SSMAJU Legacy. Semua Hak Terpelihara.<br/>
-              Pakar Perabot Jati Berkualiti Tinggi.
+              Pakar Perabot Jati Berkualiti Tinggi.<br/>
             </p>
           </div>
-        </div>
-      </footer>
+          </div>
+        </footer>
+      )}
     </div>
   );
 };
