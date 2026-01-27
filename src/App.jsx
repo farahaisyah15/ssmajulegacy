@@ -755,55 +755,55 @@ const App = () => {
 
       {currentScreen === 'home' && (
         <footer className="bg-[#0f172a] text-white py-20 px-6 mt-20">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
-              <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
-              <div className="space-y-5">
-                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
-                <div className="flex flex-col gap-4">
-                  <a href="https://wa.me/601156588884" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                    <span>Amka (Sales)</span>
-                  </a>
-                  <a href="https://wa.me/601136829632" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                    <span>Pie (Sales)</span>
-                  </a>
-                  <a href="https://wa.me/60123456789" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-                    <span>Pejabat / Office</span>
-                  </a>
-                </div>
-              </div>
-              <div className="space-y-5">
-                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
-                <div className="flex flex-col gap-4">
-                  <a href="https://tiktok.com/@premiumjati" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
-                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
-                    <span>TikTok @premiumjati</span>
-                  </a>
-                  <a href="https://facebook.com/SSMajuLegacy" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-blue-500 transition-all">
-                    <div className="p-2 bg-white/5 rounded-lg group-hover:bg-blue-500/20"><Icons.Facebook /></div>
-                    <span>Facebook SS Maju Legacy</span>
-                  </a>
-                </div>
-              </div>
-              <div className="space-y-5">
-                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-yellow-500 pl-3">Waktu Operasi</h4>
-                <div className="text-sm text-gray-400 leading-relaxed">
-                  <p className="font-bold text-white">Isnin - Jumaat </p>
-                  <p>2:00 PM - 12:00 AM</p>
-                  <p className="font-bold text-white">Sabtu - Ahad </p>
-                  <p>10:00 AM- 12:00 AM</p>
-                  <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
-                </div>
-              </div>
-            </div>
+  <div className="max-w-4xl mx-auto">
+    <div className="text-center mb-16">
+      <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
+      <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+      <div className="space-y-5">
+        <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
+        <div className="flex flex-col gap-4">
+          <a href="https://wa.me/601156588884" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+            <span>Amka (Sales)</span>
+          </a>
+          <a href="https://wa.me/601136829632" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+            <span>Pie (Sales)</span>
+          </a>
+          <a href="https://wa.me/60123456789" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+            <span>Pejabat / Office</span>
+          </a>
+        </div>
+      </div>
+      <div className="space-y-5">
+        <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
+        <div className="flex flex-col gap-4">
+          <a href="https://tiktok.com/@premiumjati" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
+            <span>TikTok @premiumjati</span>
+          </a>
+          <a href="https://facebook.com/SSMajuLegacy" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-blue-500 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-blue-500/20"><Icons.Facebook /></div>
+            <span>Facebook SS Maju Legacy</span>
+          </a>
+        </div>
+      </div>
+      <div className="space-y-5">
+        <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-yellow-500 pl-3">Waktu Operasi</h4>
+        <div className="text-sm text-gray-400 leading-relaxed">
+          <p className="font-bold text-white">Isnin - Jumaat </p>
+          <p>2:00 PM - 12:00 AM</p>
+          <p className="font-bold text-white">Sabtu - Ahad </p>
+          <p>10:00 AM- 12:00 AM</p>
+          <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
+        </div>
+      </div>
+    </div>
             <div className="h-px w-full bg-white/10 mb-10"></div>
-                        <div className="text-center">
+              <div className="text-center">
               <p 
                 onClick={handleSecretTap}
                 className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose cursor-pointer select-none active:scale-95 transition-transform"
