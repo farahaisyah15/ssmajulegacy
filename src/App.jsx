@@ -26,6 +26,7 @@ const Icons = {
     <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/><path d="M16.671 15.458l.532-3.47h-3.328V9.738c0-.949.465-1.874 1.956-1.874h1.513V4.91s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.67v2.613H7.078v3.47h3.047v8.385a12.09 12.09 0 001.938.157c.65 0 1.284-.052 1.906-.152v-8.39h2.702z" fill="white"/></svg>
   ),
 };
+const LOGO_SSMAJU = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/logossmajulegacy.jpg";
 
 const ProductCard = ({ p, onSelect }) => {
   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
@@ -89,12 +90,11 @@ const App = () => {
     ambilData();
   }, []);
 
-  // Logic Skrol (Hanya Cat Bar yang hilang)
+  // Logic scroll ( Cat Bar hilang)
   useEffect(() => {
     const controlCatBar = () => {
     const currentScrollY = window.scrollY;
 
-    // Tambah threshold (5px) untuk elakkan flickering pada pergerakan halus
     if (Math.abs(currentScrollY - lastScrollY) < 5) return;
 
     if (currentScrollY > lastScrollY && currentScrollY > 300) {
