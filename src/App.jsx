@@ -43,8 +43,8 @@ const ProductCard = ({ p, onSelect }) => {
         
 {p.note && (
           <div className="flex items-start gap-1 mb-4">
-            <span className="text-blue-500 text-[10px]">*</span>
-            <p className="text-[10px] text-red-400 italic leading-tight">
+            <span className="text-blue-500 text-[12px]">*</span>
+            <p className="text-[12px] text-red-400 italic leading-tight">
               {p.note}
             </p>
           </div>
