@@ -813,7 +813,7 @@ const App = () => {
               </p>
             </div>
             <div className="text-center">
-            <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
+            <p className="text-gray-500 text-[10px] uppercase tracking-widest px-10 py-4">
               Pakar Perabot Jati Berkualiti Tinggi.<br/>
             </p>
           </div>
