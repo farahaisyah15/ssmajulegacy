@@ -668,10 +668,16 @@ const App = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#fafafa]"></div>
             
             <div className="relative z-10 max-w-5xl flex flex-col items-center">
-              <div className="inline-flex items-center gap-3 px-6 py-2 border border-yellow-600/40 rounded-full bg-black/40 backdrop-blur-md mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
-                <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-[0.3em]">Koleksi Eksklusif 2026</span>
-              </div>
+              <div 
+  onClick={handleSecretTap}
+  className="inline-flex items-center gap-3 px-6 py-2 border border-yellow-600/40 rounded-full bg-black/40 backdrop-blur-md mb-8 cursor-pointer select-none active:scale-95 transition-transform"
+  title="Akses Eksklusif"
+>
+  <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+  <span className="text-yellow-500 text-[10px] font-bold uppercase tracking-[0.3em]">
+    Koleksi Eksklusif 2026
+  </span>
+</div>
               
               <h1 className="text-5xl md:text-8xl font-serif text-white mb-6 tracking-tight leading-[1.1]">
                 Perabot <span className="italic text-yellow-500 font-serif"> Premium Jati</span>
@@ -831,18 +837,10 @@ const App = () => {
       </div>
     </div>
             <div className="h-px w-full bg-white/10 mb-10"></div>
-              <div className="text-center">
-              <p 
-                onClick={handleSecretTap}
-                className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose cursor-pointer select-none active:scale-95 transition-transform"
-                title="Admin Access"
-              >
-                © 2026 SSMAJU Legacy. Semua Hak Terpelihara.
-              </p>
-            </div>
-            <div className="text-center">
-            <p className="text-gray-500 text-[10px] uppercase tracking-widest px-10 py-4">
-              Pakar Perabot Jati Berkualiti Tinggi.<br/>
+          <div className="text-center">
+            <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
+              © 2026 SSMAJU Legacy. Semua Hak Terpelihara.<br/>
+              Pakar Perabot Jati Berkualiti Tinggi.
             </p>
           </div>
           </div>
