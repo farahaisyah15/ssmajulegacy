@@ -31,7 +31,6 @@ const Icons = {
   Plus: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   Trash: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
 };
-const LOGO_SSMAJU = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/logossmajulegacy.jpg";
 
 const ProductCard = ({ p, onSelect }) => {
   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
@@ -87,6 +86,7 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
     price: '',
     thumb: '',
     note: '',
+    is_visible: true,
     variants: [] 
   };
 
@@ -94,6 +94,19 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     p.cat.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const toggleVisibility = async (id, currentStatus) => {
+    try {
+      const { error } = await supabase
+        .from('perabot')
+        .update({ is_visible: !currentStatus })
+        .eq('id', id);
+      if (error) throw error;
+      refreshData();
+    } catch (err) {
+      alert("Gagal tukar status: " + err.message);
+    }
+  };
 
   const moveImage = async (fullUrl, oldCat, oldName, newCat, newName) => {
     try {
@@ -326,11 +339,6 @@ const handleSave = async () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          {searchTerm && (
-            <p className="text-xs text-gray-500 mt-2 ml-2">
-              Menunjukkan {filteredProducts.length} hasil carian...
-            </p>
-          )}
         </div>
 
         <div className="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
@@ -340,14 +348,16 @@ const handleSave = async () => {
                 <tr>
                   <th className="p-4">Produk</th>
                   <th className="p-4">Kategori</th>
-                  <th className="p-4">Harga Bermula dari (RM)</th>
-                  <th className="p-4 text-center">Total Stok</th>
+                  <th className="p-4">Harga (RM)</th>
+                  <th className="p-4 text-center">Stok</th>
+                  <th className="p-4 text-center">Paparan</th>
                   <th className="p-4 text-center">Tindakan</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredProducts.map(p => {
                   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
+                  const isVisible = p.is_visible !== false; 
                   return (
                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                       <td className="p-4 font-bold text-gray-900 flex items-center gap-3">
@@ -368,6 +378,19 @@ const handleSave = async () => {
                             ? 'bg-yellow-100 text-yellow-700'
                             : 'bg-green-100 text-green-700'}`}>
                           {totalStok} Unit
+                        </span>
+                      </td>
+                      <td className="p-4 text-center">
+                        <div className="flex justify-center">
+                          <button 
+                            onClick={() => toggleVisibility(p.id, isVisible)}
+                            className={`relative w-12 h-6 rounded-full transition-all duration-300 shadow-inner ${isVisible ? 'bg-emerald-500' : 'bg-red-500'}`}
+                          >
+                            <div className={`absolute top-1 bg-white w-4 h-4 rounded-full shadow-md transition-all duration-300 ${isVisible ? 'left-7' : 'left-1'}`}></div>
+                          </button>
+                        </div>
+                        <span className="text-[8px] font-bold uppercase tracking-tighter mt-1 block">
+                          {isVisible ? 'Show' : 'Hide'}
                         </span>
                       </td>
                       <td className="p-4 text-center">
@@ -639,9 +662,10 @@ const App = () => {
   ];
 
   const filteredData = perabotData.filter(p => {
+    const isVisible = p.is_visible !== false; 
     const matchFilter = filter === 'Semua' || p.cat === filter;
     const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchFilter && matchSearch;
+    return isVisible && matchFilter && matchSearch;
   });
 
   if (loading) return (
@@ -749,7 +773,7 @@ const App = () => {
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
             </header>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
               {selectedProduct.variants?.map((v, i) => (
                 <div key={i} className="group animate-in fade-in slide-in-from-bottom-10 duration-700">
                   <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-50 mb-6 border border-gray-100 aspect-square">
