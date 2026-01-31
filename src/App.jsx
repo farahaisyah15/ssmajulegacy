@@ -604,14 +604,41 @@ const App = () => {
 
   const ambilData = async () => {
     setLoading(true);
-    const { data, error } = await supabase.from('perabot').select('*').order('id', { ascending: true });
+    const { data, error } = await supabase
+      .from('perabot')
+      .select('*')
+      .order('id', { ascending: true });
     if (error) console.error("Error tarik data:", error);
     else setPerabotData(data || []);
     setLoading(false);
   };
 
+  const refreshDataSenyap = async () => {
+    const { data } = await supabase
+      .from('perabot')
+      .select('*')
+      .order('id', { ascending: true });
+    if (data) setPerabotData(data);
+  };
+
   useEffect(() => {
     ambilData();
+
+    const subscription = supabase
+      .channel('perabot_changes')
+      .on(
+        'postgres_changes', 
+        { event: '*', schema: 'public', table: 'perabot' }, 
+        (payload) => {
+          console.log('Perubahan dikesan!', payload);
+          refreshDataSenyap(); 
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(subscription);
+    };
   }, []);
 
   useEffect(() => {
