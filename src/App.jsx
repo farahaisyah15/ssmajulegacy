@@ -11,12 +11,14 @@ const Icons = {
   All: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>,
   Lacitepi: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="12" x="3" y="6" rx="2"/><path d="M3 12h18M11 9h2M11 15h2"/></svg>,
   Bidai: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z"/></svg>,
-  Buaian: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2v16m12-16v16M4 18h16M7 10h10a5 5 0 0 1-10 0z"/></svg>,
+  Sparkle: () => ( <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"> <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /> </svg>),
+  Buaian: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2v16m12-16v16M4 18h16M7 10h10a5 5 0 0 1-10 0z"/></svg>,
   Kerusi: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 20v-8m10 8v-8M5 12h14V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v4zm2 0v3h10v-3"/></svg>,
   Cermin: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="12" rx="7" ry="10"/></svg>,
   Tingkap: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="14" height="18" x="5" y="3" rx="1"/><path d="M5 12h14M12 3v18"/></svg>,
   Almari: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="14" height="18" x="5" y="3" rx="1"/><path d="M12 3v18M5 10h14M5 14h14"/></svg>,
-  WhatsApp: () => (
+  Tag: () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg>),
+  WhatsApp: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="#25D366" stroke="white" strokeWidth="0.5"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.004c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   ),
   Facebook: () => (
@@ -34,40 +36,37 @@ const Icons = {
 
 const ProductCard = ({ p, onSelect }) => {
   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
-  const labelType = p.source_table === 'secondhand' ? 'SECONDHAND' : 'PREMIUM JATI';
-  const labelColor = p.source_table === 'secondhand'
-  ? 'bg-blue-900/50 backdrop-blur-md text-[#00FFFF] border border-[#00FFFF]/30 rounded-sm px-2 shadow-xl' 
-  : 'bg-black/40 backdrop-blur-md text-[#FFD700] border border-[#FFD700]/50 rounded-sm px-2 shadow-xl';
+  const labelType = p.source_table === 'secondhand' ? 'SECONDHAND' : 'PREMIUM JATI';
+  const labelColor = p.source_table === 'secondhand'
+  ? 'bg-blue-900/50 backdrop-blur-md text-[#00FFFF] border border-[#00FFFF]/30 rounded-sm px-2 shadow-xl' 
+  : 'bg-black/40 backdrop-blur-md text-[#FFD700] border border-[#FFD700]/50 rounded-sm px-2 shadow-xl';
 
-    const ribbonUrl = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/offerribbon.png";
+    const ribbonUrl = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/offerribbon.png";
 
   return (
     <div onClick={() => onSelect(p)} className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-gray-100 relative">
       {p.is_offer && (
-        <div className="absolute top-0 right-0 z-20 w-24 h-24 pointer-events-none">
-          <img 
-            src={ribbonUrl} 
-            alt="Offer" 
-            className="w-full h-full object-contain absolute top-[-5px] right-[-5px]" 
-          />
-        </div>
-      )}
+        <div className="absolute top-0 right-0 z-20 w-24 h-24 pointer-events-none">
+          <img 
+            src={ribbonUrl} 
+            alt="Offer" 
+            className="w-full h-full object-contain absolute top-[-5px] right-[-5px]" 
+          />
+        </div>
+      )}
 
-    <div className="relative aspect-[4/5] overflow-hidden">
+    <div className="relative aspect-[4/5] overflow-hidden">
         <img src={p.thumb} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={p.name} />
         <div className="absolute top-4 left-4 flex flex-col items-start gap-2">
-          
-          {/* 1. Label Kategori (Atas) */}
-          <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 shadow-sm border border-white/20">
-            {p.cat}
-          </span>
+          
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 shadow-sm border border-white/20">
+            {p.cat}
+          </span>
+          <span className={`px-2 py-1 backdrop-blur-md rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm border border-white/20 ${labelColor}`}>
+            {labelType}
+          </span>
 
-          {/* 2. Label Jenis (Bawah - Secondhand/Premium) */}
-          <span className={`px-2 py-1 backdrop-blur-md rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm border border-white/20 ${labelColor}`}>
-            {labelType}
-          </span>
-
-        </div>
+        </div>
       </div>
       <div className="p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{p.name}</h3>
@@ -107,37 +106,45 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
   const [visualVariants, setVisualVariants] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const [selectedIds, setSelectedIds] = useState([]); 
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [activeTab, setActiveTab] = useState('perabot');
 
-  const emptyProduct = {
-    name: '',
-    cat: 'Sofa',
-    price: '',
-    thumb: '',
-    note: '',
-    is_visible: true,
-    is_offer: false,
-    source_table: 'perabot',
-    variants: [] 
-  };
+  const emptyProduct = {
+    name: '',
+    cat: 'Sofa',
+    price: '',
+    thumb: '',
+    note: '',
+    is_visible: true,
+    is_offer: false,
+    source_table: 'perabot',
+    variants: [] 
+  };
 
-  const filteredProducts = perabotData.filter(p => 
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    p.cat.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = perabotData
+  .filter(p => {
+    const matchTab = p.source_table === activeTab;
+    const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                        p.cat.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return matchTab && matchSearch;
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 
   const toggleVisibility = async (id, currentStatus) => {
-    try {
-      const { error } = await supabase
-        .from('perabot')
-        .update({ is_visible: !currentStatus })
-        .eq('id', id);
-      if (error) throw error;
-      refreshData();
-    } catch (err) {
-      alert("Gagal tukar status: " + err.message);
-    }
-  };
+    try {
+      const targetTable = activeTab === 'secondhand' ? 'secondhand' : 'perabot'; 
+
+      const { error } = await supabase
+        .from(targetTable)
+        .update({ is_visible: !currentStatus })
+        .eq('id', id);
+      if (error) throw error;
+      refreshData();
+    } catch (err) {
+      alert("Gagal tukar status: " + err.message);
+    }
+  };
 
   const moveImage = async (fullUrl, oldCat, oldName, newCat, newName) => {
     try {
@@ -175,62 +182,62 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
 
 
 const handleFileUpload = async (file, type, variantIndex = null) => {
-    if (!file) return;
+    if (!file) return;
 
-    const targetBucket = editForm.source_table === 'secondhand' ? 'secondhand_storage' : 'gambar jati';
+    const targetBucket = editForm.source_table === 'secondhand' ? 'secondhand_storage' : 'gambar jati';
 
-    setUploading(true);
-    try {
-      const cleanCat = (editForm.cat || 'Uncategorized').trim();
-      const cleanName = (editForm.name || 'Unnamed').trim();
-      const fileExt = file.name.split('.').pop();
-      
-      let fileName = '';
-      let filePath = '';
+    setUploading(true);
+    try {
+      const cleanCat = (editForm.cat || 'Uncategorized').trim();
+      const cleanName = (editForm.name || 'Unnamed').trim();
+      const fileExt = file.name.split('.').pop();
+      
+      let fileName = '';
+      let filePath = '';
 
-      if (type === 'thumb') {
-        fileName = `Thumbnail_${Date.now()}.${fileExt}`;
-        filePath = `${cleanCat}/${cleanName}/${fileName}`;
-      } else if (type === 'variant') {
-        const colorName = visualVariants[variantIndex]?.color 
-          ? visualVariants[variantIndex].color.trim() 
-          : `Variant_${Date.now()}`;
-        
-        fileName = `${colorName}.${fileExt}`;
-        filePath = `${cleanCat}/${cleanName}/${fileName}`;
-      }
+      if (type === 'thumb') {
+        fileName = `Thumbnail_${Date.now()}.${fileExt}`;
+        filePath = `${cleanCat}/${cleanName}/${fileName}`;
+      } else if (type === 'variant') {
+        const colorName = visualVariants[variantIndex]?.color 
+          ? visualVariants[variantIndex].color.trim() 
+          : `Variant_${Date.now()}`;
+        
+        fileName = `${colorName}.${fileExt}`;
+        filePath = `${cleanCat}/${cleanName}/${fileName}`;
+      }
 
-      const { error: uploadError } = await supabase.storage
-        .from(targetBucket) 
-        .upload(filePath, file, { upsert: true });
+      const { error: uploadError } = await supabase.storage
+        .from(targetBucket) 
+        .upload(filePath, file, { upsert: true });
 
-      if (uploadError) throw uploadError;
+      if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage
-        .from(targetBucket)
-        .getPublicUrl(filePath);
+      const { data: { publicUrl } } = supabase.storage
+        .from(targetBucket)
+        .getPublicUrl(filePath);
 
-      if (type === 'thumb') {
-        setEditForm(prev => ({ ...prev, thumb: publicUrl }));
-      } else if (type === 'variant') {
-        const newVariants = [...visualVariants];
-        newVariants[variantIndex].img = publicUrl;
-        setVisualVariants(newVariants);
-      }
+      if (type === 'thumb') {
+        setEditForm(prev => ({ ...prev, thumb: publicUrl }));
+      } else if (type === 'variant') {
+        const newVariants = [...visualVariants];
+        newVariants[variantIndex].img = publicUrl;
+        setVisualVariants(newVariants);
+      }
 
-    } catch (error) {
-      alert("Gagal upload: " + error.message);
-    } finally {
-      setUploading(false);
-    }
-  };
+    } catch (error) {
+      alert("Gagal upload: " + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const openAdd = () => {
-    setEditingId(null);
-    setEditForm(emptyProduct);
-    setVisualVariants([{ color: "Warna Standard", price: 0, stok: 10, img: "" }]);
-    setIsModalOpen(true);
-  };
+    setEditingId(null);
+    setEditForm({ ...emptyProduct, source_table: activeTab }); 
+    setVisualVariants([{ color: "Warna Standard", price: 0, stok: 10, img: "" }]);
+    setIsModalOpen(true);
+  };
 
   const openEdit = (product) => {
     setEditingId(product.id);
@@ -260,108 +267,109 @@ const handleFileUpload = async (file, type, variantIndex = null) => {
   };
 
   const handleDelete = async (id) => {
-    if(!window.confirm("Adakah anda pasti mahu memadam produk ini?")) return;
+    if(!window.confirm("Adakah anda pasti mahu memadam produk ini?")) return;
+    try {
+      const targetTable = activeTab === 'secondhand' ? 'secondhand' : 'perabot';
+
+      const { error } = await supabase.from(targetTable).delete().eq('id', id);
+      alert("Produk berjaya dipadam.");
+      refreshData();
+    } catch (err) {
+      alert("Gagal memadam: " + err.message);
+    }
+  };
+
+const handleSave = async () => {
     try {
-      const { error } = await supabase.from('perabot').delete().eq('id', id);
-      if (error) throw error;
-      alert("Produk berjaya dipadam.");
+      const targetTable = editForm.source_table === 'secondhand' ? 'secondhand' : 'perabot';
+      
+      let finalThumb = editForm.thumb;
+      let finalVariants = [...visualVariants];
+      if (editingId) {
+        const originalData = perabotData.find(p => p.id === editingId && p.source_table === editForm.source_table);
+        
+        if (originalData && (originalData.cat !== editForm.cat || originalData.name !== editForm.name)) {
+            
+            const confirmMove = window.confirm("Anda telah menukar Nama atau Kategori. Adakah anda mahu memindahkan fail gambar ke folder baru yang sepadan?");
+            
+            if (confirmMove) {
+                setUploading(true);
+                
+                if (editForm.thumb) {
+                   finalThumb = await moveImage(editForm.thumb, originalData.cat, originalData.name, editForm.cat, editForm.name);
+                }
+
+                for (let i = 0; i < finalVariants.length; i++) {
+                    if (finalVariants[i].img) {
+                        finalVariants[i].img = await moveImage(finalVariants[i].img, originalData.cat, originalData.name, editForm.cat, editForm.name);
+                    }
+                }
+                setUploading(false);
+            }
+        }
+      }
+
+      finalVariants = finalVariants.map(v => ({
+        ...v,
+        price: Number(v.price),
+        stok: Number(v.stok)
+      }));
+
+      const finalData = {
+        name: editForm.name,
+        cat: editForm.cat,
+        price: Number(editForm.price),
+        thumb: finalThumb,
+        note: editForm.note,
+        is_visible: editForm.is_visible,
+        is_offer: editForm.is_offer,
+        variants: finalVariants
+      };
+
+      if (editingId) {
+        const { error } = await supabase.from(targetTable).update(finalData).eq('id', editingId);
+        if (error) throw error;
+        alert('Data berjaya dikemas kini!');
+      } else {
+        const { error } = await supabase.from(targetTable).insert([finalData]);
+        if (error) throw error;
+        alert(`Produk berjaya ditambah ke ${targetTable === 'secondhand' ? 'Secondhand' : 'Premium Jati'}!`);
+      }
+
+      setIsModalOpen(false);
       refreshData();
     } catch (err) {
-      alert("Gagal memadam: " + err.message);
+      setUploading(false);
+      alert('Ralat semasa menyimpan: ' + err.message);
+    }
+  };
+  const toggleSelect = (uniqueId) => {
+    if (selectedIds.includes(uniqueId)) {
+      setSelectedIds(selectedIds.filter(id => id !== uniqueId));
+    } else {
+      setSelectedIds([...selectedIds, uniqueId]);
     }
   };
 
-const handleSave = async () => {
-    try {
-      const targetTable = editForm.source_table === 'secondhand' ? 'secondhand' : 'perabot';
-      
-      let finalThumb = editForm.thumb;
-      let finalVariants = [...visualVariants];
-      if (editingId) {
-        const originalData = perabotData.find(p => p.id === editingId && p.source_table === editForm.source_table);
-        
-        if (originalData && (originalData.cat !== editForm.cat || originalData.name !== editForm.name)) {
-            
-            const confirmMove = window.confirm("Anda telah menukar Nama atau Kategori. Adakah anda mahu memindahkan fail gambar ke folder baru yang sepadan?");
-            
-            if (confirmMove) {
-                setUploading(true);
-                
-                if (editForm.thumb) {
-                   finalThumb = await moveImage(editForm.thumb, originalData.cat, originalData.name, editForm.cat, editForm.name);
-                }
+  const handleBulkVisibility = async (status) => {
+    if (selectedIds.length === 0) return;
+    if (!window.confirm(`Ubah status ${selectedIds.length} item kepada ${status ? 'Show' : 'Hide'}?`)) return;
 
-                for (let i = 0; i < finalVariants.length; i++) {
-                    if (finalVariants[i].img) {
-                        finalVariants[i].img = await moveImage(finalVariants[i].img, originalData.cat, originalData.name, editForm.cat, editForm.name);
-                    }
-                }
-                setUploading(false);
-            }
-        }
-      }
+    const itemsToUpdate = perabotData.filter(p => selectedIds.includes(p.id + p.source_table));
+    const jatiIds = itemsToUpdate.filter(p => p.source_table === 'perabot').map(p => p.id);
+    const secIds = itemsToUpdate.filter(p => p.source_table === 'secondhand').map(p => p.id);
 
-      finalVariants = finalVariants.map(v => ({
-        ...v,
-        price: Number(v.price),
-        stok: Number(v.stok)
-      }));
-
-      const finalData = {
-        name: editForm.name,
-        cat: editForm.cat,
-        price: Number(editForm.price),
-        thumb: finalThumb,
-        note: editForm.note,
-        is_visible: editForm.is_visible,
-        is_offer: editForm.is_offer,
-        variants: finalVariants
-      };
-
-      if (editingId) {
-        const { error } = await supabase.from(targetTable).update(finalData).eq('id', editingId);
-        if (error) throw error;
-        alert('Data berjaya dikemas kini!');
-      } else {
-        const { error } = await supabase.from(targetTable).insert([finalData]);
-        if (error) throw error;
-        alert(`Produk berjaya ditambah ke ${targetTable === 'secondhand' ? 'Secondhand' : 'Premium Jati'}!`);
-      }
-
-      setIsModalOpen(false);
-      refreshData();
-    } catch (err) {
-      setUploading(false);
-      alert('Ralat semasa menyimpan: ' + err.message);
-    }
-  };
-  const toggleSelect = (uniqueId) => {
-    if (selectedIds.includes(uniqueId)) {
-      setSelectedIds(selectedIds.filter(id => id !== uniqueId));
-    } else {
-      setSelectedIds([...selectedIds, uniqueId]);
-    }
-  };
-
-  const handleBulkVisibility = async (status) => {
-    if (selectedIds.length === 0) return;
-    if (!window.confirm(`Ubah status ${selectedIds.length} item kepada ${status ? 'Show' : 'Hide'}?`)) return;
-
-    const itemsToUpdate = perabotData.filter(p => selectedIds.includes(p.id + p.source_table));
-    const jatiIds = itemsToUpdate.filter(p => p.source_table === 'perabot').map(p => p.id);
-    const secIds = itemsToUpdate.filter(p => p.source_table === 'secondhand').map(p => p.id);
-
-    try {
-      if (jatiIds.length > 0) await supabase.from('perabot').update({ is_visible: status }).in('id', jatiIds);
-      if (secIds.length > 0) await supabase.from('secondhand').update({ is_visible: status }).in('id', secIds);
-      
-      setSelectedIds([]);
-      refreshData();
-      alert("Status berjaya dikemaskini!");
-    } catch (e) {
-      alert("Ralat bulk update");
-    }
-  };
+    try {
+      if (jatiIds.length > 0) await supabase.from('perabot').update({ is_visible: status }).in('id', jatiIds);
+      if (secIds.length > 0) await supabase.from('secondhand').update({ is_visible: status }).in('id', secIds);
+      
+      setSelectedIds([]);
+      refreshData();
+      alert("Status berjaya dikemaskini!");
+    } catch (e) {
+      alert("Ralat bulk update");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -381,6 +389,29 @@ const handleSave = async () => {
           </div>
         </div>
 
+        <div className="flex gap-4 mb-6 border-b border-gray-200">
+            <button 
+                onClick={() => setActiveTab('perabot')}
+                className={`pb-3 px-4 text-sm font-bold uppercase tracking-wider transition-all border-b-4 ${
+                    activeTab === 'perabot' 
+                    ? 'border-blue-600 text-blue-600' 
+                    : 'border-transparent text-gray-400 hover:text-gray-600'
+                }`}
+            >
+                Premium Jati
+            </button>
+            <button 
+                onClick={() => setActiveTab('secondhand')}
+                className={`pb-3 px-4 text-sm font-bold uppercase tracking-wider transition-all border-b-4 ${
+                    activeTab === 'secondhand' 
+                    ? 'border-purple-600 text-purple-600' 
+                    : 'border-transparent text-gray-400 hover:text-gray-600'
+                }`}
+            >
+                Secondhand
+            </button>
+        </div>
+
         <div className="mb-8">
           <div className="relative">
             <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
@@ -397,24 +428,24 @@ const handleSave = async () => {
         </div>
 
 
-        {selectedIds.length > 0 && (
-        <div className="bg-blue-600 text-white p-3 rounded-xl mb-4 flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-2">
-            <span className="text-xs font-bold uppercase tracking-widest">{selectedIds.length} Produk Dipilih</span>
-            <div className="flex gap-2">
-                <button onClick={() => handleBulkVisibility(true)} className="px-3 py-1 bg-white text-blue-600 rounded-lg text-[10px] font-bold uppercase hover:bg-blue-50">Show All</button>
-                <button onClick={() => handleBulkVisibility(false)} className="px-3 py-1 bg-blue-800 text-white rounded-lg text-[10px] font-bold uppercase hover:bg-blue-900">Hide All</button>
-            </div>
-        </div>
-      )}
+        {selectedIds.length > 0 && (
+        <div className="bg-blue-600 text-white p-3 rounded-xl mb-4 flex items-center justify-between shadow-lg animate-in fade-in slide-in-from-top-2">
+            <span className="text-xs font-bold uppercase tracking-widest">{selectedIds.length} Produk Dipilih</span>
+            <div className="flex gap-2">
+                <button onClick={() => handleBulkVisibility(true)} className="px-3 py-1 bg-white text-blue-600 rounded-lg text-[10px] font-bold uppercase hover:bg-blue-50">Show All</button>
+                <button onClick={() => handleBulkVisibility(false)} className="px-3 py-1 bg-blue-800 text-white rounded-lg text-[10px] font-bold uppercase hover:bg-blue-900">Hide All</button>
+            </div>
+        </div>
+      )}
 
         <div className="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-gray-600">
-              <thead className="bg-gray-100 text-xs uppercase font-bold text-gray-500">
-                <tr>
-                  <th className="p-4 w-10">Pilih</th>
-                  <th className="p-4">Produk</th>
-                  <th className="p-4">Kategori</th>
+            <table className="w-full text-left text-sm text-gray-600">
+              <thead className="bg-gray-100 text-xs uppercase font-bold text-gray-500">
+                <tr>
+                  <th className="p-4 w-10">Pilih</th>
+                  <th className="p-4">Produk</th>
+                  <th className="p-4">Kategori</th>
                   <th className="p-4">Harga (RM)</th>
                   <th className="p-4 text-center">Stok</th>
                   <th className="p-4 text-center">Paparan</th>
@@ -426,33 +457,33 @@ const handleSave = async () => {
                 {filteredProducts.map(p => {
                   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
                   const isVisible = p.is_visible !== false; 
-                  const uniqueId = p.id + p.source_table;
-                  const isSelected = selectedIds.includes(uniqueId);
+                  const uniqueId = p.id + p.source_table;
+                  const isSelected = selectedIds.includes(uniqueId);
 
                   return (
-                    <tr key={uniqueId} className={`hover:bg-gray-50 transition-colors ${isSelected ? 'bg-blue-50' : ''}`}>
-                        <td className="p-4">
-                            <input 
-                                type="checkbox" 
-                                checked={isSelected} 
-                                onChange={() => toggleSelect(uniqueId)}
-                                className="w-4 h-4 rounded border-gray-300 cursor-pointer"
-                            />
-                        </td>                      
-                        <td className="p-4 font-bold text-gray-900 flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 border border-gray-200">
-                          {p.thumb ? <img src={p.thumb} className="w-full h-full object-cover" alt="" /> : <div className="text-[8px]">No IMG</div>}
-                        </div>
-                        <div>
-                            {p.name}
-                            <div className="flex gap-1 mt-1">
-                                <span className={`text-[8px] px-1 rounded border ${p.source_table === 'secondhand' ? 'border-purple-200 text-purple-600 bg-purple-50' : 'border-amber-200 text-amber-600 bg-amber-50'}`}>
-                                    {p.source_table === 'secondhand' ? '2ND' : 'JATI'}
-                                </span>
-                                {p.is_offer && <span className="text-[8px] px-1 rounded bg-red-100 text-red-600 font-bold border border-red-200">OFFER</span>}
-                            </div>
-                        </div>
-                      </td>
+                    <tr key={uniqueId} className={`hover:bg-gray-50 transition-colors ${isSelected ? 'bg-blue-50' : ''}`}>
+                        <td className="p-4">
+                            <input 
+                                type="checkbox" 
+                                checked={isSelected} 
+                                onChange={() => toggleSelect(uniqueId)}
+                                className="w-4 h-4 rounded border-gray-300 cursor-pointer"
+                            />
+                        </td>                      
+                        <td className="p-4 font-bold text-gray-900 flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 border border-gray-200">
+                          {p.thumb ? <img src={p.thumb} className="w-full h-full object-cover" alt="" /> : <div className="text-[8px]">No IMG</div>}
+                        </div>
+                        <div>
+                            {p.name}
+                            <div className="flex gap-1 mt-1">
+                                <span className={`text-[8px] px-1 rounded border ${p.source_table === 'secondhand' ? 'border-purple-200 text-purple-600 bg-purple-50' : 'border-amber-200 text-amber-600 bg-amber-50'}`}>
+                                    {p.source_table === 'secondhand' ? '2ND' : 'JATI'}
+                                </span>
+                                {p.is_offer && <span className="text-[8px] px-1 rounded bg-red-100 text-red-600 font-bold border border-red-200">OFFER</span>}
+                            </div>
+                        </div>
+                      </td>
 
                       <td className="p-4">
                         <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded-md text-[10px] font-bold uppercase">{p.cat}</span>
@@ -511,42 +542,42 @@ const handleSave = async () => {
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
-                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                        <label className="block text-xs font-bold uppercase text-blue-600 mb-2">Jenis Produk (Table & Storage)</label>
-                        <div className="flex gap-4">
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input 
-                                    type="radio" 
-                                    name="type" 
-                                    checked={editForm.source_table === 'perabot'}
-                                    onChange={() => setEditForm({...editForm, source_table: 'perabot'})}
-                                    disabled={editingId}
-                                    className="accent-blue-600"
-                                />
-                                <span className="text-sm font-bold text-gray-700">Premium Jati</span>
-                            </label>
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input 
-                                    type="radio" 
-                                    name="type" 
-                                    checked={editForm.source_table === 'secondhand'}
-                                    onChange={() => setEditForm({...editForm, source_table: 'secondhand'})}
-                                    disabled={editingId}
-                                    className="accent-purple-600"
-                                />
-                                <span className="text-sm font-bold text-gray-700">Secondhand</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-200">
-                        <span className="text-xs font-bold uppercase text-gray-500">Status Offer (Ribbon Merah)</span>
-                        <button 
-                            onClick={() => setEditForm({...editForm, is_offer: !editForm.is_offer})}
-                            className={`relative w-12 h-6 rounded-full transition-all duration-300 ${editForm.is_offer ? 'bg-red-500' : 'bg-gray-300'}`}
-                        >
-                            <div className={`absolute top-1 bg-white w-4 h-4 rounded-full shadow-md transition-all duration-300 ${editForm.is_offer ? 'left-7' : 'left-1'}`}></div>
-                        </button>
-                    </div>
+                    <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        <label className="block text-xs font-bold uppercase text-blue-600 mb-2">Jenis Produk (Table & Storage)</label>
+                        <div className="flex gap-4">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                                <input 
+                                    type="radio" 
+                                    name="type" 
+                                    checked={editForm.source_table === 'perabot'}
+                                    onChange={() => setEditForm({...editForm, source_table: 'perabot'})}
+                                    disabled={editingId}
+                                    className="accent-blue-600"
+                                />
+                                <span className="text-sm font-bold text-gray-700">Premium Jati</span>
+                            </label>
+                            <label className="flex items-center gap-2 cursor-pointer">
+                                <input 
+                                    type="radio" 
+                                    name="type" 
+                                    checked={editForm.source_table === 'secondhand'}
+                                    onChange={() => setEditForm({...editForm, source_table: 'secondhand'})}
+                                    disabled={editingId}
+                                    className="accent-purple-600"
+                                />
+                                <span className="text-sm font-bold text-gray-700">Secondhand</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-between bg-gray-50 p-3 rounded-xl border border-gray-200">
+                        <span className="text-xs font-bold uppercase text-gray-500">Status Offer (Ribbon Merah)</span>
+                        <button 
+                            onClick={() => setEditForm({...editForm, is_offer: !editForm.is_offer})}
+                            className={`relative w-12 h-6 rounded-full transition-all duration-300 ${editForm.is_offer ? 'bg-red-500' : 'bg-gray-300'}`}
+                        >
+                            <div className={`absolute top-1 bg-white w-4 h-4 rounded-full shadow-md transition-all duration-300 ${editForm.is_offer ? 'left-7' : 'left-1'}`}></div>
+                        </button>
+                    </div>
 
                    <div>
                     <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Kategori</label>
@@ -555,7 +586,9 @@ const handleSave = async () => {
                       onChange={e => setEditForm({...editForm, cat: e.target.value})}
                       className="w-full p-3 bg-gray-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 font-bold outline-none"
                     >
-                      <option value="Sofa">Sofa</option>
+                      
+                      <option value="Random">Random</option>
+                      <option value="Sofa">Sofa</option>
                       <option value="Meja Makan">Meja Makan</option>
                       <option value="Katil">Katil</option>
                       <option value="Laci Tepi">Laci Tepi</option>
@@ -565,6 +598,7 @@ const handleSave = async () => {
                       <option value="Cermin">Cermin</option>
                       <option value="Tingkap">Tingkap</option>
                       <option value="Almari">Almari</option>
+                      <option value="Hiasan">Hiasan</option>
                     </select>
                   </div>
 
@@ -728,75 +762,75 @@ const App = () => {
   const [adminTapCount, setAdminTapCount] = useState(0);
 
 
-  const ambilData = async () => {
-    setLoading(true);
-    
-    const { data: jatiData, error: errJati } = await supabase
-      .from('perabot')
-      .select('*'); 
-      
-    const { data: secData, error: errSec } = await supabase
-      .from('secondhand')
-      .select('*');
+  const ambilData = async () => {
+    setLoading(true);
+    
+    const { data: jatiData, error: errJati } = await supabase
+      .from('perabot')
+      .select('*'); 
+      
+    const { data: secData, error: errSec } = await supabase
+      .from('secondhand')
+      .select('*');
 
-    if (errJati || errSec) console.error("Error tarik data", errJati, errSec);
-
-
-    const formattedJati = (jatiData || []).map(item => ({ ...item, source_table: 'perabot' }));
-    const formattedSec = (secData || []).map(item => ({ ...item, source_table: 'secondhand' }));
+    if (errJati || errSec) console.error("Error tarik data", errJati, errSec);
 
 
-    let combinedData = [...formattedJati, ...formattedSec];
+    const formattedJati = (jatiData || []).map(item => ({ ...item, source_table: 'perabot' }));
+    const formattedSec = (secData || []).map(item => ({ ...item, source_table: 'secondhand' }));
 
-    for (let i = combinedData.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [combinedData[i], combinedData[j]] = [combinedData[j], combinedData[i]];
-    }
 
-    setPerabotData(combinedData);
-    setLoading(false);
-  };
+    let combinedData = [...formattedJati, ...formattedSec];
 
-  const refreshDataSenyap = async () => {
-    const p1 = supabase.from('perabot').select('*');
-    const p2 = supabase.from('secondhand').select('*');
-    const [res1, res2] = await Promise.all([p1, p2]);
-     
-    const d1 = (res1.data || []).map(i => ({...i, source_table: 'perabot'}));
-    const d2 = (res2.data || []).map(i => ({...i, source_table: 'secondhand'}));
-    
-    let combinedData = [...d1, ...d2];
+    for (let i = combinedData.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [combinedData[i], combinedData[j]] = [combinedData[j], combinedData[i]];
+    }
 
-    for (let i = combinedData.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [combinedData[i], combinedData[j]] = [combinedData[j], combinedData[i]];
-    }
+    setPerabotData(combinedData);
+    setLoading(false);
+  };
 
-    setPerabotData(combinedData);
-  }
+  const refreshDataSenyap = async () => {
+    const p1 = supabase.from('perabot').select('*');
+    const p2 = supabase.from('secondhand').select('*');
+    const [res1, res2] = await Promise.all([p1, p2]);
+     
+    const d1 = (res1.data || []).map(i => ({...i, source_table: 'perabot'}));
+    const d2 = (res2.data || []).map(i => ({...i, source_table: 'secondhand'}));
+    
+    let combinedData = [...d1, ...d2];
+
+    for (let i = combinedData.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [combinedData[i], combinedData[j]] = [combinedData[j], combinedData[i]];
+    }
+
+    setPerabotData(combinedData);
+  }
 
   useEffect(() => {
     ambilData();
 
-    const subPerabot = supabase
-      .channel('perabot_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'perabot' }, () => {
-        refreshDataSenyap(); 
-      })
-      .subscribe();
+    const subPerabot = supabase
+      .channel('perabot_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'perabot' }, () => {
+        refreshDataSenyap(); 
+      })
+      .subscribe();
 
-    const subSecondhand = supabase
-      .channel('secondhand_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'secondhand' }, () => {
-        refreshDataSenyap(); 
-      })
-      .subscribe();
+    const subSecondhand = supabase
+      .channel('secondhand_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'secondhand' }, () => {
+        refreshDataSenyap(); 
+      })
+      .subscribe();
 
-    return () => {
-      supabase.removeChannel(subPerabot);
-      supabase.removeChannel(subSecondhand);
-    };
-  }, []);
+    return () => {
+      supabase.removeChannel(subPerabot);
+      supabase.removeChannel(subSecondhand);
+    };
+  }, []);
 
   useEffect(() => {
     const controlCatBar = () => {
@@ -832,42 +866,42 @@ const App = () => {
   };
 
 const handleTempahan = async (variant, index) => {
-    const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${variant.color})`)}`;
+    const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${variant.color})`)}`;
 
-    window.open(waUrl, '_blank');
+    window.open(waUrl, '_blank');
 
-    if (selectedProduct.source_table === 'secondhand') {
-      const currentStok = Number(variant.stok);
+    if (selectedProduct.source_table === 'secondhand') {
+      const currentStok = Number(variant.stok);
 
-      if (currentStok > 0) {
-        const updatedVariants = [...selectedProduct.variants];
-        updatedVariants[index].stok = currentStok - 1;
-        
-        setSelectedProduct(prev => ({
-          ...prev,
-          variants: updatedVariants
-        }));
+      if (currentStok > 0) {
+        const updatedVariants = [...selectedProduct.variants];
+        updatedVariants[index].stok = currentStok - 1;
+        
+        setSelectedProduct(prev => ({
+          ...prev,
+          variants: updatedVariants
+        }));
 
-        try {
-          const { error } = await supabase
-            .from('secondhand')
-            .update({ variants: updatedVariants })
-            .eq('id', selectedProduct.id);
-            
-          if (error) console.error("Gagal tolak stok DB:", error);
-          
-          refreshDataSenyap(); 
-        } catch (err) {
-          console.error("Error update stok:", err);
-        }
-      }
-    }
-  };
+        try {
+          const { error } = await supabase
+            .from('secondhand')
+            .update({ variants: updatedVariants })
+            .eq('id', selectedProduct.id);
+            
+          if (error) console.error("Gagal tolak stok DB:", error);
+          
+          refreshDataSenyap(); 
+        } catch (err) {
+          console.error("Error update stok:", err);
+        }
+      }
+    }
+  };
 
   const categoryList = [
     { id: 'Semua', label: 'Semua', icon: <Icons.All /> },
-    { id: 'Secondhand', label: 'Secondhand', icon: <Icons.Edit /> },
-    { id: 'Hiasan', label: 'Hiasan', icon: <Icons.Cermin /> },
+    { id: 'Secondhand', label: 'Secondhand', icon: <Icons.Tag /> },
+    { id: 'Hiasan', label: 'Hiasan', icon: <Icons.Sparkle /> },
     { id: 'Sofa', label: 'Sofa', icon: <Icons.Sofa /> },
     { id: 'Meja Makan', label: 'Meja Makan', icon: <Icons.Mejamakan /> },
     { id: 'Katil', label: 'Katil', icon: <Icons.Bed /> },
@@ -968,10 +1002,10 @@ const handleTempahan = async (variant, index) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {filteredData.length > 0 ? filteredData.map(p => (
                 <ProductCard key={`${p.source_table}-${p.id}`} 
-                    p={p} 
-                    onSelect={(prod) => { setSelectedProduct(prod); setCurrentScreen('gallery'); window.scrollTo(0,0); }} 
-                />
-                )) : (
+                    p={p} 
+                    onSelect={(prod) => { setSelectedProduct(prod); setCurrentScreen('gallery'); window.scrollTo(0,0); }} 
+                />
+                )) : (
                 <div className="col-span-full text-center py-20">
                   <div className="inline-flex p-5 rounded-full bg-gray-50 mb-4"><Icons.Search /></div>
                   <p className="text-gray-400 font-medium italic">Tiada produk ditemui untuk "{searchTerm}"</p>
@@ -1019,16 +1053,16 @@ const handleTempahan = async (variant, index) => {
                   </div>
 
                   <button 
-                    onClick={() => handleTempahan(v, i)}
-                    disabled={Number(v.stok) <= 0} 
-                    className={`w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all active:scale-95
-                    ${Number(v.stok) > 0 
-                        ? 'bg-[#22c55e] hover:bg-[#16a34a] text-white cursor-pointer' 
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-                >
-                    <Icons.MessageCircle /> 
-                    {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "PRE-ORDER"}
-                </button>
+                    onClick={() => handleTempahan(v, i)}
+                    disabled={Number(v.stok) <= 0} 
+                    className={`w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all active:scale-95
+                    ${Number(v.stok) > 0 
+                        ? 'bg-[#22c55e] hover:bg-[#16a34a] text-white cursor-pointer' 
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                >
+                    <Icons.MessageCircle /> 
+                    {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "PRE-ORDER"}
+                </button>
 
                 </div>
               ))}
