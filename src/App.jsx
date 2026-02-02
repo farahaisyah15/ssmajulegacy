@@ -911,17 +911,20 @@ const App = () => {
   };
 
 const handleTempahan = async (variant, index) => {
-    const isPreOrder = Number(variant.stok) <= 0;
+    const isPreOrder = Number(variant.stok) <= 0;
     const linkGambar = variant.img || selectedProduct.thumb;
 
-    const ayatPesanan = isPreOrder 
-      ? `Saya berminat nak pre-order/tempah:\n*${selectedProduct.name}*\nWarna: ${variant.color}\n\nLink Rujukan: ${linkGambar}` 
-      : `Saya berminat dengan:\n*${selectedProduct.name}*\nWarna: ${variant.color}\n\nLink Rujukan: ${linkGambar}`;
+    const tajuk = isPreOrder ? "📝 *TEMPAHAN PRE-ORDER*" : "🛒 *PERTANYAAN STOK*";
+    
+    const ayatPesanan = `${tajuk}\n\n` +
+                        `Produk: *${selectedProduct.name}*\n` +
+                        `Warna: ${variant.color}\n\n` +
+                        `${linkGambar}`;
 
     const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(ayatPesanan)}`;
 
-
-    window.open(waUrl, '_blank');
+    window.open(waUrl, '_blank');
+    
 
     if (selectedProduct.source_table === 'secondhand') {
       const currentStok = Number(variant.stok);
