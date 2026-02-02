@@ -1106,7 +1106,7 @@ const handleTempahan = async (variant, index) => {
             <h2 className="text-[11px] font-black uppercase tracking-[0.2em] line-clamp-1">{selectedProduct.name}</h2>
             <div className="w-10" />
           </nav>
-          <div className="max-w-4xl mx-auto px-6 py-12">
+          <div className="max-w-4xl mx-auto px-6 py-12 pb-40">
             <header className="text-center mb-16">
               <span className="text-blue-600 font-black text-[10px] tracking-[0.3em] uppercase">{selectedProduct.cat}</span>
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
@@ -1193,7 +1193,7 @@ const handleTempahan = async (variant, index) => {
               <h2 className="text-2xl font-black tracking-[0.3em] mb-4 uppercase">Perabot Premium Jati</h2>
               <p className="text-blue-400 text-[10px] tracking-[0.5em] uppercase font-bold">By SSMAJU Legacy</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
               <div className="space-y-5">
                 <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
                 <div className="flex flex-col gap-4">
@@ -1212,9 +1212,18 @@ const handleTempahan = async (variant, index) => {
                 </div>
               </div>
               <div className="space-y-5">
+                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-orange-500 pl-3">
+                  Info Penghantaran
+                </h4>
+                <div className="text-sm text-gray-400 leading-relaxed">
+                  <p>🚚 <b>Seluruh Semenanjung Malaysia</b></p>
+                  <p className="mt-2">📦 <b>Ready Stock:</b> 3 - 7 Hari Bekerja</p>
+                </div>
+              </div>
+              <div className="space-y-5">
                 <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-blue-500 pl-3">Media Sosial</h4>
                 <div className="flex flex-col gap-4">
-                  <a href="https://tiktok.com/@premiumjati" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
+                  <a href="https://tiktok.com/@ssmajupremium" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-pink-500 transition-all">
                     <div className="p-2 bg-white/5 rounded-lg group-hover:bg-pink-500/20"><Icons.TikTok /></div>
                     <span>TikTok @premiumjati</span>
                   </a>
@@ -1234,10 +1243,33 @@ const handleTempahan = async (variant, index) => {
                   <p className="mt-2 font-bold text-red-400">Rabu: Tutup</p>
                 </div>
               </div>
+              <div className="space-y-5">
+                <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-red-500 pl-3">
+                  Lokasi Kami
+                </h4>
+                <div className="text-sm text-gray-400 leading-relaxed">
+                  <p>SS MAJU LEGACY</p>
+                  <p>20c, Jln Besar, 86400 Parit Raja,</p>
+                  <p>Johor Darul Ta'zim.</p>
+                  
+                  <a 
+                    href="https://www.google.com/maps/search/?api=1&query=SS+MAJU+LEGACY+Parit+Raja" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Buka Google Maps
+                  </a>
+                </div>
+              </div>
             </div>
             <div className="h-px w-full bg-white/10 mb-10"></div>
             <div className="text-center">
-              <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose">
+              <p className="text-gray-500 text-[10px] uppercase tracking-widest leading-loose pb-40">
                 © 2026 SSMAJU Legacy. Semua Hak Terpelihara.<br/>
                 Pakar Perabot Jati Berkualiti Tinggi.
               </p>
