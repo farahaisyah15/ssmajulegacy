@@ -912,14 +912,15 @@ const App = () => {
 
 const handleTempahan = async (variant, index) => {
     const isPreOrder = Number(variant.stok) <= 0;
-    const linkGambar = variant.img || selectedProduct.thumb;
-
-    const tajuk = isPreOrder ? "📝 *TEMPAHAN PRE-ORDER*" : "🛒 *PERTANYAAN STOK*";
     
-    const ayatPesanan = `${tajuk}\n\n` +
-                        `Produk: *${selectedProduct.name}*\n` +
-                        `Warna: ${variant.color}\n\n` +
-                        `${linkGambar}`;
+    const ayatPermulaan = isPreOrder 
+        ? `Saya berminat dengan produk *pre-order/tempah*` 
+        : `Saya berminat dengan`;
+
+    const ayatPesanan = `${ayatPermulaan} produk berikut:\n\n` +
+                        `*${selectedProduct.name}*\n` +
+                        `Warna: ${variant.color}\n` +
+                        `Harga: RM ${Number(variant.price || selectedProduct.price).toLocaleString('en-MY')}`;
 
     const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(ayatPesanan)}`;
 
