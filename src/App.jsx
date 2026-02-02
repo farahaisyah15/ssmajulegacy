@@ -34,68 +34,94 @@ const Icons = {
   Trash: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
 };
 
+// 1. Cari bahagian ini dalam kod anda
 const ProductCard = ({ p, onSelect }) => {
-  const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
-  const labelType = p.source_table === 'secondhand' ? 'SECONDHAND' : 'PREMIUM JATI';
-  const labelColor = p.source_table === 'secondhand'
-  ? 'bg-blue-900/50 backdrop-blur-md text-[#00FFFF] border border-[#00FFFF]/30 rounded-sm px-2 shadow-xl' 
-  : 'bg-black/40 backdrop-blur-md text-[#FFD700] border border-[#FFD700]/50 rounded-sm px-2 shadow-xl';
+  const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
+  const labelType = p.source_table === 'secondhand' ? 'SECONDHAND' : 'PREMIUM JATI';
+  const labelColor = p.source_table === 'secondhand'
+  ? 'bg-blue-900/50 backdrop-blur-md text-[#00FFFF] border border-[#00FFFF]/30 rounded-sm px-2 shadow-xl' 
+  : 'bg-black/40 backdrop-blur-md text-[#FFD700] border border-[#FFD700]/50 rounded-sm px-2 shadow-xl';
 
-    const ribbonUrl = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/offerribbon.png";
+  const ribbonUrl = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/offerribbon.png";
 
-  return (
-    <div onClick={() => onSelect(p)} className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-gray-100 relative">
-      {p.is_offer && (
-        <div className="absolute top-0 right-0 z-20 w-24 h-24 pointer-events-none">
-          <img 
-            src={ribbonUrl} 
-            alt="Offer" 
-            className="w-full h-full object-contain absolute top-[-5px] right-[-5px]" 
-          />
-        </div>
-      )}
+  // --- (TAMBAH INI) State untuk check gambar dah load ke belum ---
+  const [imageLoaded, setImageLoaded] = useState(false); 
+  // --------------------------------------------------------------
 
-    <div className="relative aspect-[4/5] overflow-hidden">
-        <img src={p.thumb} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={p.name} />
-        <div className="absolute top-4 left-4 flex flex-col items-start gap-2">
-          
-          <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 shadow-sm border border-white/20">
-            {p.cat}
-          </span>
-          <span className={`px-2 py-1 backdrop-blur-md rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm border border-white/20 ${labelColor}`}>
-            {labelType}
-          </span>
+  return (
+    <div onClick={() => onSelect(p)} className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-gray-100 relative">
+      {p.is_offer && (
+        <div className="absolute top-0 right-0 z-20 w-24 h-24 pointer-events-none">
+          <img 
+            src={ribbonUrl} 
+            alt="Offer" 
+            className="w-full h-full object-contain absolute top-[-5px] right-[-5px]" 
+          />
+        </div>
+      )}
 
-        </div>
-      </div>
-      <div className="p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{p.name}</h3>
-        <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${totalStok > 0 ? 'text-emerald-600' : 'text-red-500'}`}>{totalStok > 0 ? `Stok: ${totalStok} Unit` : 'Stok Habis'}</p>
-        
-        {p.note && (
-          <div className="flex items-start gap-1 mb-4">
-            <span className="text-blue-500 text-[12px]">*</span>
-            <p className="text-[12px] text-red-400 italic leading-tight line-clamp-2">
-              {p.note}
-            </p>
-          </div>
-        )}
+    {/* --- (UBAH BAHAGIAN GAMBAR DI SINI) --- */}
+    <div className="relative aspect-[4/5] overflow-hidden bg-gray-200"> {/* Tambah bg-gray-200 */}
+        
+        {/* 1. Skeleton Loader (Kotak Kelabu Berdenyut sementara tunggu gambar) */}
+        {!imageLoaded && (
+            <div className="absolute inset-0 animate-pulse bg-gray-300 z-10" />
+        )}
 
-        <div className="flex flex-col border-t border-gray-50 pt-4">
-          <span className="text-[10px] font-bold text-blue-600 uppercase tracking-tighter">Bermula Dari</span>
-          <div className="flex items-center justify-between">
-            <p className="text-xl font-black text-gray-900">
-              <span className="text-xs font-medium mr-1">RM</span>
-              {Number(p.price).toLocaleString('en-MY')}
-            </p>
-            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+        {/* 2. Gambar dengan Lazy Loading & Fade Effect */}
+        <img 
+            src={p.thumb} 
+            alt={p.name}
+            loading="lazy"       // Browser download bila perlu je
+            decoding="async"     // Proses gambar di background
+            onLoad={() => setImageLoaded(true)} // Beritahu react bila gambar dah siap
+            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110
+                ${imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm scale-110'} // Effect masuk
+            `} 
+        />
+        
+        <div className="absolute top-4 left-4 flex flex-col items-start gap-2 z-20"> {/* Tambah z-20 supaya label duduk atas skeleton */}
+          
+          <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 shadow-sm border border-white/20">
+            {p.cat}
+          </span>
+
+          <span className={`px-2 py-1 backdrop-blur-md rounded-lg text-[9px] font-black uppercase tracking-widest shadow-sm border border-white/20 ${labelColor}`}>
+            {labelType}
+          </span>
+
+        </div>
+      </div>
+      {/* -------------------------------------- */}
+
+      <div className="p-6">
+        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{p.name}</h3>
+        <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${totalStok > 0 ? 'text-emerald-600' : 'text-red-500'}`}>{totalStok > 0 ? `Stok: ${totalStok} Unit` : 'Stok Habis'}</p>
+        
+        {p.note && (
+          <div className="flex items-start gap-1 mb-4">
+            <span className="text-blue-500 text-[12px]">*</span>
+            <p className="text-[12px] text-red-400 italic leading-tight line-clamp-2">
+              {p.note}
+            </p>
+          </div>
+        )}
+
+        <div className="flex flex-col border-t border-gray-50 pt-4">
+          <span className="text-[10px] font-bold text-blue-600 uppercase tracking-tighter">Bermula Dari</span>
+          <div className="flex items-center justify-between">
+            <p className="text-xl font-black text-gray-900">
+              <span className="text-xs font-medium mr-1">RM</span>
+              {Number(p.price).toLocaleString('en-MY')}
+            </p>
+            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
@@ -147,38 +173,44 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
   };
 
   const moveImage = async (fullUrl, oldCat, oldName, newCat, newName) => {
-    try {
-      if (!fullUrl) return null;
-      const urlParts = fullUrl.split('/gambar%20jati/');
-      if (urlParts.length < 2) return fullUrl;
+  try {
+    if (!fullUrl) return null;
 
-      const relativePath = decodeURIComponent(urlParts[1]);
-      const fileName = relativePath.split('/').pop();
+    // Detect bucket based on the URL
+    const isSecondhand = fullUrl.includes('secondhand_storage');
+    const bucketName = isSecondhand ? 'secondhand_storage' : 'gambar jati';
+    const splitKey = isSecondhand ? '/secondhand_storage/' : '/gambar%20jati/';
 
-      const oldPath = `${oldCat}/${oldName}/${fileName}`;
-      const newPath = `${newCat}/${newName}/${fileName}`;
+    const urlParts = fullUrl.split(splitKey);
+    if (urlParts.length < 2) return fullUrl;
 
-      if (oldPath === newPath) return fullUrl;
+    const relativePath = decodeURIComponent(urlParts[1]);
+    const fileName = relativePath.split('/').pop();
 
-      const { error } = await supabase.storage
-        .from('gambar jati')
-        .move(oldPath, newPath);
+    const oldPath = `${oldCat}/${oldName}/${fileName}`;
+    const newPath = `${newCat}/${newName}/${fileName}`;
 
-      if (error) {
-        console.warn("Gagal pindah fail:", error.message);
-        return fullUrl;
-      }
+    if (oldPath === newPath) return fullUrl;
 
-      const { data } = supabase.storage
-        .from('gambar jati')
-        .getPublicUrl(newPath);
+    const { error } = await supabase.storage
+      .from(bucketName)
+      .move(oldPath, newPath);
 
-      return data.publicUrl;
-    } catch (err) {
-      console.error(err);
-      return fullUrl;
-    }
-  };
+    if (error) {
+      console.warn("Gagal pindah fail:", error.message);
+      return fullUrl;
+    }
+
+    const { data } = supabase.storage
+      .from(bucketName)
+      .getPublicUrl(newPath);
+
+    return data.publicUrl;
+  } catch (err) {
+    console.error(err);
+    return fullUrl;
+  }
+};
 
 
 const handleFileUpload = async (file, type, variantIndex = null) => {
@@ -750,6 +782,29 @@ const handleSave = async () => {
   );
 };
 
+const GalleryImage = ({ src, alt }) => {
+  const [loaded, setLoaded] = useState(false);
+  
+  return (
+    <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-200 mb-6 border border-gray-100 aspect-square">
+      {/* Skeleton Loader */}
+      {!loaded && (
+        <div className="absolute inset-0 animate-pulse bg-gray-300 z-10" />
+      )}
+      
+      <img 
+        src={src} 
+        alt={alt}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-105
+          ${loaded ? 'opacity-100 blur-0' : 'opacity-0 blur-md scale-110'}
+        `} 
+      />
+    </div>
+  );
+};
+
 const App = () => {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -916,7 +971,15 @@ const handleTempahan = async (variant, index) => {
 
   const filteredData = perabotData.filter(p => {
     const isVisible = p.is_visible !== false; 
-    const matchFilter = filter === 'Semua' || p.cat === filter;
+      let matchFilter = false;
+
+          if (filter === 'Semua') {
+            matchFilter = true;
+          } else if (filter === 'Secondhand') {
+            matchFilter = p.source_table === 'secondhand';
+          } else {
+            matchFilter = p.cat === filter;
+          }
     const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
     return isVisible && matchFilter && matchSearch;
   });
@@ -1029,44 +1092,55 @@ const handleTempahan = async (variant, index) => {
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
             </header>
             
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-              {selectedProduct.variants?.map((v, i) => (
-                <div key={i} className="group animate-in fade-in slide-in-from-bottom-10 duration-700">
-                  <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-50 mb-6 border border-gray-100 aspect-square">
-                    <img 
-                      src={v.img} 
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                      alt={v.color} 
-                    />
-                  </div>
+          {/* ... inside the App component return, gallery screen section ... */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+  {selectedProduct?.variants?.map((v, i) => {
+    // Logic must be inside the map but before the return
+    const isSecondhandOrOffer = selectedProduct.source_table === 'secondhand' || selectedProduct.is_offer;
+    const hasStock = Number(v.stok) > 0;
+    const isButtonDisabled = isSecondhandOrOffer && !hasStock;
 
-                  <div className="px-2 mb-6">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">{v.color}</h3>
-                        <p className={`text-[11px] font-bold uppercase tracking-widest mt-1 ${Number(v.stok) > 0 ? 'text-emerald-600' : 'text-red-500'}`}>
-                          {Number(v.stok) > 0 ? `Stok Yang Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
-                        </p>
-                      </div>
-                      <span className="text-lg font-black text-blue-600">RM {Number(v.price || selectedProduct.price).toLocaleString('en-MY')}</span>
-                    </div>
-                  </div>
+    return (
+      <div key={i} className="group animate-in fade-in slide-in-from-bottom-10 duration-700">
+          <GalleryImage src={v.img} alt={v.color} />
 
-                  <button 
-                    onClick={() => handleTempahan(v, i)}
-                    disabled={Number(v.stok) <= 0} 
-                    className={`w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all active:scale-95
-                    ${Number(v.stok) > 0 
-                        ? 'bg-[#22c55e] hover:bg-[#16a34a] text-white cursor-pointer' 
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-                >
-                    <Icons.MessageCircle /> 
-                    {Number(v.stok) > 0 ? "TEMPAH SEKARANG" : "PRE-ORDER"}
-                </button>
+        <div className="px-2 mb-6">
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <h3 className="text-xl font-bold text-gray-900">{v.color}</h3>
+              <p className={`text-[11px] font-bold uppercase tracking-widest mt-1 ${hasStock ? 'text-emerald-600' : 'text-red-500'}`}>
+                {hasStock ? `Stok Yang Tersedia: ${v.stok}` : 'Maaf, Kehabisan Stok'}
+              </p>
+            </div>
+            <span className="text-lg font-black text-blue-600">
+              RM {Number(v.price || selectedProduct.price).toLocaleString('en-MY')}
+            </span>
+          </div>
+        </div>
 
-                </div>
-              ))}
-            </div>
+        <button 
+          onClick={() => handleTempahan(v, i)}
+          disabled={isButtonDisabled} 
+          className={`w-full inline-flex items-center justify-center gap-3 px-8 py-5 rounded-2xl font-black text-[10px] tracking-[0.15em] shadow-xl transition-all active:scale-95
+            ${isButtonDisabled 
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : hasStock 
+                ? 'bg-[#22c55e] hover:bg-[#16a34a] text-white cursor-pointer'
+                : 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer'
+            }`}
+        >
+          <Icons.MessageCircle /> 
+          {hasStock 
+            ? "TEMPAH SEKARANG" 
+            : isSecondhandOrOffer 
+              ? "MAAF, HABIS STOK" 
+              : "PRE-ORDER (TEMPAH)"
+          }
+        </button>
+      </div>
+    );
+  })}
+</div>
           </div>
         </div>
       )}
