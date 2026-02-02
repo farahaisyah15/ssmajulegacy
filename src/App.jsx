@@ -915,9 +915,9 @@ const handleTempahan = async (variant, index) => {
     
     const ayatPermulaan = isPreOrder 
         ? `Saya berminat dengan produk *pre-order/tempah*` 
-        : `Saya berminat dengan`;
+        : `Saya berminat dengan produk`;
 
-    const ayatPesanan = `${ayatPermulaan} produk berikut:\n\n` +
+    const ayatPesanan = `${ayatPermulaan} berikut:\n\n` +
                         `*${selectedProduct.name}*\n` +
                         `Warna: ${variant.color}\n` +
                         `Harga: RM ${Number(variant.price || selectedProduct.price).toLocaleString('en-MY')}`;
@@ -1131,7 +1131,7 @@ const handleTempahan = async (variant, index) => {
         >
           <Icons.MessageCircle /> 
           {hasStock 
-            ? "TEMPAH SEKARANG" 
+            ? "CHAT KAMI SEKARANG" 
             : isSecondhandOrOffer 
               ? "MAAF, HABIS STOK" 
               : "PRE-ORDER (TEMPAH)"
