@@ -34,7 +34,7 @@ const Icons = {
   Trash: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
 };
 
-// 1. Cari bahagian ini dalam kod anda
+
 const ProductCard = ({ p, onSelect }) => {
   const totalStok = p.variants?.reduce((acc, curr) => acc + (Number(curr.stok) || 0), 0) || 0;
   const labelType = p.source_table === 'secondhand' ? 'SECONDHAND' : 'PREMIUM JATI';
@@ -44,9 +44,7 @@ const ProductCard = ({ p, onSelect }) => {
 
   const ribbonUrl = "https://knwgotcdbfxgdmumblqq.supabase.co/storage/v1/object/public/asset/offerribbon.png";
 
-  // --- (TAMBAH INI) State untuk check gambar dah load ke belum ---
   const [imageLoaded, setImageLoaded] = useState(false); 
-  // --------------------------------------------------------------
 
   return (
     <div onClick={() => onSelect(p)} className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer border border-gray-100 relative">
@@ -60,27 +58,22 @@ const ProductCard = ({ p, onSelect }) => {
         </div>
       )}
 
-    {/* --- (UBAH BAHAGIAN GAMBAR DI SINI) --- */}
-    <div className="relative aspect-[4/5] overflow-hidden bg-gray-200"> {/* Tambah bg-gray-200 */}
-        
-        {/* 1. Skeleton Loader (Kotak Kelabu Berdenyut sementara tunggu gambar) */}
+    <div className="relative aspect-[4/5] overflow-hidden bg-gray-200">
         {!imageLoaded && (
             <div className="absolute inset-0 animate-pulse bg-gray-300 z-10" />
         )}
-
-        {/* 2. Gambar dengan Lazy Loading & Fade Effect */}
         <img 
             src={p.thumb} 
             alt={p.name}
-            loading="lazy"       // Browser download bila perlu je
-            decoding="async"     // Proses gambar di background
-            onLoad={() => setImageLoaded(true)} // Beritahu react bila gambar dah siap
+            loading="lazy" 
+            decoding="async"  
+            onLoad={() => setImageLoaded(true)}
             className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110
                 ${imageLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-sm scale-110'} // Effect masuk
             `} 
         />
         
-        <div className="absolute top-4 left-4 flex flex-col items-start gap-2 z-20"> {/* Tambah z-20 supaya label duduk atas skeleton */}
+        <div className="absolute top-4 left-4 flex flex-col items-start gap-2 z-20">
           
           <span className="px-3 py-1 bg-white/90 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 shadow-sm border border-white/20">
             {p.cat}
@@ -92,7 +85,6 @@ const ProductCard = ({ p, onSelect }) => {
 
         </div>
       </div>
-      {/* -------------------------------------- */}
 
       <div className="p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-1">{p.name}</h3>
@@ -176,7 +168,6 @@ const AdminDashboard = ({ perabotData, refreshData, onBack }) => {
   try {
     if (!fullUrl) return null;
 
-    // Detect bucket based on the URL
     const isSecondhand = fullUrl.includes('secondhand_storage');
     const bucketName = isSecondhand ? 'secondhand_storage' : 'gambar jati';
     const splitKey = isSecondhand ? '/secondhand_storage/' : '/gambar%20jati/';
@@ -787,7 +778,6 @@ const GalleryImage = ({ src, alt }) => {
   
   return (
     <div className="relative rounded-[2rem] overflow-hidden shadow-xl bg-gray-200 mb-6 border border-gray-100 aspect-square">
-      {/* Skeleton Loader */}
       {!loaded && (
         <div className="absolute inset-0 animate-pulse bg-gray-300 z-10" />
       )}
@@ -921,7 +911,15 @@ const App = () => {
   };
 
 const handleTempahan = async (variant, index) => {
-    const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(`Saya berminat dengan ${selectedProduct.name} (Warna: ${variant.color})`)}`;
+    const isPreOrder = Number(variant.stok) <= 0;
+    const linkGambar = variant.img || selectedProduct.thumb;
+
+    const ayatPesanan = isPreOrder 
+      ? `Saya berminat nak pre-order/tempah:\n*${selectedProduct.name}*\nWarna: ${variant.color}\n\nLink Rujukan: ${linkGambar}` 
+      : `Saya berminat dengan:\n*${selectedProduct.name}*\nWarna: ${variant.color}\n\nLink Rujukan: ${linkGambar}`;
+
+    const waUrl = `https://wa.me/60143106207?text=${encodeURIComponent(ayatPesanan)}`;
+
 
     window.open(waUrl, '_blank');
 
@@ -1092,10 +1090,8 @@ const handleTempahan = async (variant, index) => {
               <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
             </header>
             
-          {/* ... inside the App component return, gallery screen section ... */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
   {selectedProduct?.variants?.map((v, i) => {
-    // Logic must be inside the map but before the return
     const isSecondhandOrOffer = selectedProduct.source_table === 'secondhand' || selectedProduct.is_offer;
     const hasStock = Number(v.stok) > 0;
     const isButtonDisabled = isSecondhandOrOffer && !hasStock;
@@ -1156,6 +1152,10 @@ const handleTempahan = async (variant, index) => {
       <div className="space-y-5">
         <h4 className="text-xs font-black uppercase tracking-widest text-gray-400 border-l-2 border-green-500 pl-3">Tempahan WhatsApp</h4>
         <div className="flex flex-col gap-4">
+          <a href="https://wa.me/60143106207" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
+            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
+            <span>Pejabat / Office</span>
+          </a>
           <a href="https://wa.me/601156588884" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
             <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
             <span>Amka (Sales)</span>
@@ -1163,10 +1163,6 @@ const handleTempahan = async (variant, index) => {
           <a href="https://wa.me/601136829632" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
             <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
             <span>Pie (Sales)</span>
-          </a>
-          <a href="https://wa.me/60123456789" target="_blank" rel="noreferrer" className="group flex items-center gap-3 text-sm hover:text-green-400 transition-all">
-            <div className="p-2 bg-white/5 rounded-lg group-hover:bg-green-500/20"><Icons.WhatsApp /></div>
-            <span>Pejabat / Office</span>
           </a>
         </div>
       </div>
