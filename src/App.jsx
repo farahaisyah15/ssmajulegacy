@@ -16,7 +16,8 @@ const Icons = {
   All: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>,
   Lacitepi: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect width="18" height="12" x="3" y="6" rx="2"/><path d="M3 12h18M11 9h2M11 15h2"/></svg>,
   Bidai: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z"/></svg>,
-  Sparkle: () => ( <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"> <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z" /> </svg>),
+
+  Sparkle: () => (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L14.7 9.3L22 12L14.7 14.7L12 22L9.3 14.7L2 12L9.3 9.3L12 2Z" /></svg>),
   Buaian: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 2v16m12-16v16M4 18h16M7 10h10a5 5 0 0 1-10 0z"/></svg>,
   Kerusi: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 20v-8m10 8v-8M5 12h14V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v4zm2 0v3h10v-3"/></svg>,
   Cermin: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><ellipse cx="12" cy="12" rx="7" ry="10"/></svg>,
@@ -76,11 +77,14 @@ const ProductCard = ({ p, onSelect }) => {
               ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'} 
             `}
         />
-        {totalStok === 0 && (
+        {/* Redo Logik: Tunjuk HABIS STOK hanya jika stok=0 DAN ianya barang Secondhand atau Offer */}
+        {totalStok === 0 && (p.source_table === 'secondhand' || p.is_offer) && (
           <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-10 flex items-center justify-center">
-            <span className="bg-white/90 text-red-600 px-4 py-2 rounded-lg text-[10px] font-black tracking-widest uppercase shadow-xl border border-red-100">
-              HABIS STOK
-            </span>
+            <div className="bg-white/90 px-4 py-2 rounded-lg shadow-xl border border-red-100">
+              <span className="text-red-600 text-[10px] font-black tracking-widest uppercase">
+                HABIS STOK
+              </span>
+            </div>
           </div>
         )}
         <div className="absolute top-3 left-3 z-20 flex flex-col items-start gap-1.5">
@@ -95,7 +99,7 @@ const ProductCard = ({ p, onSelect }) => {
       </div>
 
       <div className="p-6">
-        <h3 className="text-sm md:text-lg font-bold text-gray-900 mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-sm md:text-lg font-bold text-gray-900 mb-1 line-clamp-1 group-hover:text-blue-600 transition-colors uppercase">
           {p.name}
         </h3>
         <p className={`text-[11px] font-bold uppercase tracking-wider mb-2 ${totalStok > 0 ? 'text-emerald-600' : 'text-red-500'}`}>{totalStok > 0 ? `Stok: ${totalStok} Unit` : 'Stok Habis'}</p>
@@ -1114,7 +1118,9 @@ const handleTempahan = async (variant, index) => {
           <div className="max-w-4xl mx-auto px-6 py-12 pb-40">
             <header className="text-center mb-16">
               <span className="text-blue-600 font-black text-[10px] tracking-[0.3em] uppercase">{selectedProduct.cat}</span>
-              <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900">{selectedProduct.name}</h1>
+              <h1 className="text-4xl md:text-5xl font-black mt-3 mb-6 tracking-tight text-gray-900 uppercase">
+                {selectedProduct.name}
+              </h1>
             </header>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
@@ -1157,7 +1163,7 @@ const handleTempahan = async (variant, index) => {
                         ? "CHAT KAMI SEKARANG" 
                         : isSecondhandOrOffer 
                           ? "MAAF, HABIS STOK" 
-                          : "PRE-ORDER (TEMPAH)"
+                          : "SAYA NAK PRE-ORDER (TEMPAH)"
                       }
                     </button>
                     
