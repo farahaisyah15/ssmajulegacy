@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
+console.log(
+  "%c Site Developed by Farah Aisyah @ Ferr | 2026 %c",
+  "background: #333333; color: #ffffff; font-weight: bold; padding: 5px; border-radius: 2px;",
+  "background: transparent"
+);
 
 const Icons = {
   Search: () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>,
