@@ -138,9 +138,8 @@ const ProductCard = ({ p, onSelect }) => {
           </div>
 
           <div className="w-full py-3 px-4 rounded-2xl bg-[#25D366] text-white flex items-center justify-center gap-2 group-hover:bg-[#128C7E] transition-all duration-300 shadow-md cursor-pointer active:scale-95 text-center">
-            <Icons.WhatsApp className="shrink-0" /> 
             <span className="text-[12px] font-black uppercase tracking-wider leading-tight">
-              Nak Harga lEBIH Murah?<br />PM KAMI sekarang
+              Nak Harga Murah?<br />JOM PM KAMI
             </span>
           </div>
         </div>
