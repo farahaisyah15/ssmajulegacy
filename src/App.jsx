@@ -137,10 +137,10 @@ const ProductCard = ({ p, onSelect }) => {
             </p>
           </div>
 
-          <div className="w-full py-3 px-4 rounded-2xl bg-[#25D366] text-white flex items-center justify-center gap-2 group-hover:bg-[#128C7E] transition-all duration-300 shadow-md cursor-pointer active:scale-95">
-            <Icons.WhatsApp /> 
-            <span className="text-[10px] font-black uppercase tracking-wider">
-              Chat Kami Untuk Membeli
+          <div className="w-full py-3 px-4 rounded-2xl bg-[#25D366] text-white flex items-center justify-center gap-2 group-hover:bg-[#128C7E] transition-all duration-300 shadow-md cursor-pointer active:scale-95 text-center">
+            <Icons.WhatsApp className="shrink-0" /> 
+            <span className="text-[12px] font-black uppercase tracking-wider leading-tight">
+              Nak Harga lEBIH Murah?<br />PM KAMI sekarang
             </span>
           </div>
         </div>
@@ -1246,7 +1246,8 @@ const handleTempahan = async (variant, index) => {
                   Info Penghantaran
                 </h4>
                 <div className="text-sm text-gray-400 leading-relaxed">
-                  <p>🚚 <b>Seluruh Semenanjung Malaysia</b></p>
+                  <p>🚚 <b>Seluruh Semenanjung Malaysia sahaja</b></p>
+                  <p>📍 <b>Kadar caj penghantaran</b> berbeza mengikut lokasi anda</p>
                   <p className="mt-2">📦 <b>Ready Stock:</b> 3 - 7 Hari Bekerja</p>
                 </div>
               </div>
